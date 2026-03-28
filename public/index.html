@@ -26,10 +26,12 @@
   --r:        10px;
   --r-sm:     6px;
   --mono:     'JetBrains Mono', monospace;
+  --sidebar-w: 240px;
+  --topbar-h:  58px;
+  --bottomnav-h: 64px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html, body { height: 100%; }
 
 body {
@@ -51,7 +53,6 @@ body::before {
   pointer-events: none; z-index: 0;
 }
 
-/* Radial glow */
 body::after {
   content: '';
   position: fixed;
@@ -80,10 +81,7 @@ body::after {
   display: flex; flex-direction: column; gap: 1.4rem;
 }
 
-.auth-logo {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
+.auth-logo { text-align: center; margin-bottom: 0.5rem; }
 
 .logo-ring {
   width: 64px; height: 64px;
@@ -148,49 +146,41 @@ input:focus, textarea:focus {
 input::placeholder { color: var(--muted2); }
 input[type=password] { font-family: var(--mono); letter-spacing: 0.08em; }
 textarea { resize: vertical; min-height: 80px; }
-
 .mono-input { font-family: var(--mono) !important; letter-spacing: 0.04em; }
 
 /* ── Buttons ── */
 .btn {
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 600; font-size: 0.875rem;
   padding: 0.7rem 1.3rem;
-  border: none;
-  border-radius: var(--r-sm);
+  border: none; border-radius: var(--r-sm);
   cursor: pointer;
   display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
-  transition: all 0.15s;
-  white-space: nowrap;
+  transition: all 0.15s; white-space: nowrap;
 }
 
 .btn-primary {
-  background: var(--accent);
-  color: #fff;
+  background: var(--accent); color: #fff;
   box-shadow: 0 4px 15px rgba(108,99,255,0.4);
 }
 .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(108,99,255,0.5); }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-ghost {
-  background: var(--bg3);
-  color: var(--muted);
+  background: var(--bg3); color: var(--muted);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover { color: var(--text); border-color: var(--border2); }
 
 .btn-danger { background: rgba(239,69,101,0.1); color: var(--red); border: 1px solid rgba(239,69,101,0.2); }
 .btn-danger:hover { background: rgba(239,69,101,0.2); }
-
 .btn-sm { padding: 0.4rem 0.75rem; font-size: 0.78rem; }
 .btn-full { width: 100%; }
 
 .link-btn {
   background: none; border: none;
   color: var(--accent2); font-size: 0.85rem; font-family: 'Outfit', sans-serif;
-  cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
-  padding: 0;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 0;
 }
 .link-btn:hover { color: var(--accent); }
 
@@ -200,53 +190,91 @@ textarea { resize: vertical; min-height: 80px; }
 .hint { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 .center { text-align: center; }
 
-/* ── Top bar ── */
-.topbar {
+/* ══════════════════════════════════════════
+   DESKTOP LAYOUT (sidebar + topbar)
+══════════════════════════════════════════ */
+.desktop-topbar {
+  display: none; /* hidden on mobile */
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   padding: 0 1.5rem;
-  height: 58px;
-  display: flex; align-items: center; gap: 1rem;
-  position: sticky; top: 0; z-index: 50;
+  height: var(--topbar-h);
+  align-items: center; gap: 1rem;
+  position: fixed; top: 0; left: var(--sidebar-w); right: 0; z-index: 40;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
-.topbar-logo {
+.desktop-sidebar {
+  display: none; /* hidden on mobile */
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 50;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 0 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.sidebar-logo-text {
   font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em;
   background: linear-gradient(135deg, #fff, var(--accent2));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  white-space: nowrap; flex-shrink: 0;
+}
+.sidebar-logo-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+
+.sidebar-nav { flex: 1; padding: 0 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
+
+.sidebar-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--r-sm);
+  color: var(--muted); font-size: 0.88rem; font-weight: 500;
+  cursor: pointer; border: none; background: none;
+  width: 100%; text-align: left;
+  transition: all 0.15s; font-family: 'Outfit', sans-serif;
+}
+.sidebar-item:hover { background: var(--bg3); color: var(--text); }
+.sidebar-item.active { background: rgba(108,99,255,0.12); color: var(--accent2); }
+.sidebar-item-icon { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; }
+
+.sidebar-footer {
+  padding: 1rem 0.75rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
 }
 
-.search-wrap {
-  flex: 1; max-width: 400px; position: relative;
+.user-chip {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--r-sm);
+  background: var(--bg3); border: 1px solid var(--border);
+  width: 100%; cursor: default;
 }
+.user-chip-av {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.user-chip-info { flex: 1; min-width: 0; }
+.user-chip-name { font-size: 0.82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-chip-role { font-size: 0.68rem; color: var(--muted); }
+
+/* ── Desktop search (in topbar) ── */
+.search-wrap { flex: 1; max-width: 400px; position: relative; }
 .search-wrap .search-icon {
   position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
   color: var(--muted2); pointer-events: none; font-size: 0.8rem;
 }
-.search-wrap input {
-  padding-left: 2.2rem; font-size: 0.875rem; height: 36px; padding-top: 0; padding-bottom: 0;
-}
-
+.search-wrap input { padding-left: 2.2rem; font-size: 0.875rem; height: 36px; padding-top: 0; padding-bottom: 0; }
 .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
 
-.user-chip {
-  display: flex; align-items: center; gap: 0.5rem;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 99px; padding: 0.25rem 0.75rem 0.25rem 0.25rem;
-  font-size: 0.8rem; cursor: default;
-}
-.user-chip-av {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--accent); display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0;
-}
-
 .icon-btn {
-  width: 36px; height: 36px;
-  border-radius: var(--r-sm);
+  width: 36px; height: 36px; border-radius: var(--r-sm);
   background: var(--bg3); border: 1px solid var(--border);
   color: var(--muted);
   display: flex; align-items: center; justify-content: center;
@@ -254,18 +282,106 @@ textarea { resize: vertical; min-height: 80px; }
 }
 .icon-btn:hover { color: var(--text); border-color: var(--border2); background: var(--border); }
 
-/* ── Main content ── */
-.main-content {
-  flex: 1; max-width: 1100px; width: 100%;
-  margin: 0 auto; padding: 2rem 1.5rem;
+/* ── Desktop main content area ── */
+.desktop-main {
+  display: none;
+  margin-left: var(--sidebar-w);
+  margin-top: var(--topbar-h);
+  flex: 1; flex-direction: column;
 }
+
+/* ══════════════════════════════════════════
+   MOBILE LAYOUT
+══════════════════════════════════════════ */
+
+/* Mobile topbar */
+.mobile-topbar {
+  display: flex;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+  height: var(--topbar-h);
+  align-items: center; gap: 0.75rem;
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: blur(12px);
+}
+
+.mobile-logo {
+  font-weight: 800; font-size: 1.1rem; letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff, var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.mobile-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.4rem; }
+
+/* Mobile search bar (below topbar) */
+.mobile-search {
+  display: flex;
+  padding: 0.75rem 1rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: var(--topbar-h); z-index: 39;
+}
+.mobile-search .search-wrap { max-width: 100%; }
+
+/* Mobile content */
+.mobile-main {
+  display: flex;
+  flex: 1; flex-direction: column;
+  padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Mobile bottom nav */
+.bottom-nav {
+  display: flex;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--bottomnav-h);
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  backdrop-filter: blur(12px);
+}
+
+.bottom-nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.2rem;
+  cursor: pointer; border: none; background: none;
+  color: var(--muted); font-family: 'Outfit', sans-serif;
+  transition: color 0.15s; padding: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.bottom-nav-item:active { opacity: 0.7; }
+.bottom-nav-item.active { color: var(--accent2); }
+.bottom-nav-icon { font-size: 1.2rem; line-height: 1; }
+.bottom-nav-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em; }
+
+/* FAB (floating add button) on mobile */
+.fab {
+  position: fixed;
+  bottom: calc(var(--bottomnav-h) + 1rem + env(safe-area-inset-bottom, 0px));
+  right: 1.25rem;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff; font-size: 1.5rem;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(108,99,255,0.5);
+  z-index: 45;
+  transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fab:active { transform: scale(0.93); box-shadow: 0 2px 10px rgba(108,99,255,0.4); }
+
+/* ── Shared content ── */
+.content-wrap { flex: 1; padding: 1.5rem; max-width: 1100px; width: 100%; margin: 0 auto; }
 
 .content-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 1.25rem; gap: 0.75rem; flex-wrap: wrap;
 }
-
-.content-header h2 { font-size: 1.2rem; font-weight: 700; }
+.content-header h2 { font-size: 1.15rem; font-weight: 700; }
 .count-badge {
   background: var(--bg3); border: 1px solid var(--border);
   border-radius: 99px; padding: 0.2rem 0.6rem;
@@ -273,29 +389,66 @@ textarea { resize: vertical; min-height: 80px; }
   letter-spacing: 0.06em; text-transform: uppercase;
 }
 
-/* ── Grid ── */
+/* ── Entry list (mobile default) ── */
+.entries-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.entry-row {
+  display: flex; align-items: center; gap: 0.9rem;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative; overflow: hidden;
+}
+.entry-row::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.2s;
+}
+.entry-row:active { background: var(--bg3); }
+.entry-row:hover { border-color: var(--border2); }
+.entry-row:hover::before { transform: scaleY(1); }
+
+.entry-row-favicon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 700; color: var(--accent2);
+  font-family: var(--mono); text-transform: uppercase;
+}
+.entry-row-body { flex: 1; min-width: 0; }
+.entry-row-site {
+  font-weight: 700; font-size: 0.95rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.entry-row-user {
+  font-family: var(--mono); font-size: 0.73rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-top: 0.15rem;
+}
+.entry-row-arrow { color: var(--muted2); font-size: 0.8rem; flex-shrink: 0; }
+
+/* ── Entry grid (desktop) ── */
 .entries-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
 }
 
 .entry-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 1.25rem;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.25rem;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
   position: relative; overflow: hidden;
 }
-
 .entry-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
   background: linear-gradient(90deg, var(--accent), var(--accent2));
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.25s;
+  transform: scaleX(0); transform-origin: left; transition: transform 0.25s;
 }
 .entry-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 0 1px rgba(108,99,255,0.1); }
 .entry-card:hover::before { transform: scaleX(1); }
@@ -306,15 +459,10 @@ textarea { resize: vertical; min-height: 80px; }
   border-radius: var(--r-sm);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.8rem; font-weight: 700; color: var(--accent2);
-  font-family: var(--mono);
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
+  font-family: var(--mono); margin-bottom: 0.75rem; text-transform: uppercase;
 }
-
 .entry-site {
-  font-weight: 700; font-size: 1rem;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.2rem;
+  font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; margin-bottom: 0.2rem;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .entry-user {
@@ -324,14 +472,11 @@ textarea { resize: vertical; min-height: 80px; }
 .entry-date { font-size: 0.7rem; color: var(--muted2); margin-top: 0.75rem; }
 
 /* ── Empty state ── */
-.empty-state {
-  grid-column: 1/-1;
-  text-align: center; padding: 5rem 2rem; color: var(--muted);
-}
+.empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
 .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
 .empty-state p { font-size: 0.9rem; }
 
-/* ── Modal ── */
+/* ── Modals ── */
 .overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(7,8,16,0.75);
@@ -343,8 +488,7 @@ textarea { resize: vertical; min-height: 80px; }
 .overlay.open { display: flex; }
 
 .modal {
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  background: var(--bg2); border: 1px solid var(--border);
   border-radius: var(--r);
   box-shadow: 0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(108,99,255,0.1);
   width: 100%; max-width: 500px;
@@ -364,9 +508,7 @@ textarea { resize: vertical; min-height: 80px; }
   padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
 }
 .modal-head h2 { font-size: 1.1rem; font-weight: 700; }
-
 .modal-foot { display: flex; gap: 0.6rem; justify-content: flex-end; flex-wrap: wrap; }
-
 .divider { border: none; border-top: 1px solid var(--border); }
 
 /* ── Password field ── */
@@ -379,8 +521,7 @@ textarea { resize: vertical; min-height: 80px; }
 .pw-act-btn {
   background: var(--bg3); border: 1px solid var(--border2);
   color: var(--muted); border-radius: 4px; padding: 0.2rem 0.45rem;
-  font-size: 0.7rem; cursor: pointer; transition: all 0.1s;
-  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem; cursor: pointer; transition: all 0.1s; font-family: 'Outfit', sans-serif;
 }
 .pw-act-btn:hover { color: var(--text); border-color: var(--accent); }
 
@@ -414,8 +555,7 @@ textarea { resize: vertical; min-height: 80px; }
   background: var(--bg3); border: 1px solid var(--border);
   border-radius: var(--r-sm); padding: 0.35rem 0.65rem;
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
-  cursor: pointer; color: var(--muted);
-  transition: all 0.1s; flex-shrink: 0;
+  cursor: pointer; color: var(--muted); transition: all 0.1s; flex-shrink: 0;
   font-family: 'Outfit', sans-serif;
 }
 .copy-btn:hover { color: var(--accent2); border-color: var(--accent); }
@@ -435,15 +575,14 @@ textarea { resize: vertical; min-height: 80px; }
 
 /* ── Toast ── */
 .toast {
-  position: fixed; bottom: 1.5rem; left: 50%;
+  position: fixed; bottom: calc(var(--bottomnav-h) + 1rem); left: 50%;
   transform: translateX(-50%) translateY(80px);
   background: var(--bg2); color: var(--text);
   border: 1px solid var(--border2);
   box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(108,99,255,0.2);
   font-size: 0.82rem; font-weight: 600;
   padding: 0.6rem 1.2rem; border-radius: 99px;
-  opacity: 0;
-  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s;
+  opacity: 0; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s;
   z-index: 999; pointer-events: none; white-space: nowrap;
   display: flex; align-items: center; gap: 0.5rem;
 }
@@ -463,10 +602,8 @@ textarea { resize: vertical; min-height: 80px; }
 /* ── Loading ── */
 .spinner {
   width: 20px; height: 20px;
-  border: 2px solid var(--border2);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite; display: inline-block;
+  border: 2px solid var(--border2); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -480,13 +617,67 @@ textarea { resize: vertical; min-height: 80px; }
   font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
 }
 
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  .topbar { padding: 0 1rem; }
-  .main-content { padding: 1.25rem 1rem; }
-  .modal { padding: 1.25rem; }
-  .auth-box { padding: 1.75rem 1.25rem; }
-  .topbar-logo { font-size: 1rem; }
+/* ══════════════════════════════════════════
+   DESKTOP BREAKPOINT ≥ 768px
+══════════════════════════════════════════ */
+@media (min-width: 768px) {
+  /* Show desktop elements */
+  .desktop-sidebar { display: flex; }
+  .desktop-topbar  { display: flex; }
+  .desktop-main    { display: flex; }
+
+  /* Hide mobile elements */
+  .mobile-topbar   { display: none; }
+  .mobile-search   { display: none; }
+  .mobile-main     { display: none; }
+  .bottom-nav      { display: none; }
+  .fab             { display: none; }
+
+  /* Toast sits at bottom of screen on desktop */
+  .toast { bottom: 1.5rem; }
+
+  /* Desktop content padding */
+  .content-wrap { padding: 2rem 1.75rem; }
+}
+
+/* ── Mobile sheet modals (slide up from bottom) ── */
+@media (max-width: 767px) {
+  .overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    border-radius: 16px 16px 0 0;
+    max-width: 100%;
+    max-height: 92vh;
+    padding: 1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    animation: sheet-up 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  @keyframes sheet-up {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  /* Drag handle on modals */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 36px; height: 4px;
+    background: var(--border2); border-radius: 99px;
+    margin: -0.5rem auto 0.5rem;
+  }
+
+  .modal-foot {
+    flex-direction: column-reverse;
+  }
+  .modal-foot .btn { width: 100%; justify-content: center; }
+}
+
+/* ── Very small screens ── */
+@media (max-width: 360px) {
+  .auth-box { padding: 1.5rem 1rem; }
 }
 </style>
 </head>
@@ -494,7 +685,7 @@ textarea { resize: vertical; min-height: 80px; }
 <div id="progress-bar" class="progress-bar"></div>
 <div id="app">
 
-  <!-- ══ AUTH: WELCOME ═══════════════════════════════════════════════════ -->
+  <!-- ══ AUTH ═══════════════════════════════════════════════════════════════ -->
   <div id="screen-auth" class="auth-wrap">
     <div class="auth-box">
       <div class="auth-logo">
@@ -503,7 +694,7 @@ textarea { resize: vertical; min-height: 80px; }
         <p>Zero-knowledge encrypted password manager</p>
       </div>
 
-      <!-- Login form -->
+      <!-- Login -->
       <div id="form-login">
         <div class="auth-title">Sign in to your vault</div>
         <div class="field">
@@ -519,15 +710,11 @@ textarea { resize: vertical; min-height: 80px; }
           <input id="li-device" type="text" placeholder="e.g. My Phone, Laptop">
         </div>
         <p id="li-err" class="err"></p>
-        <button class="btn btn-primary btn-full" onclick="doLogin()">
-          <span>Sign In</span>
-        </button>
-        <p class="center hint">
-          No account? <button class="link-btn" onclick="showReg()">Create one →</button>
-        </p>
+        <button class="btn btn-primary btn-full" onclick="doLogin()">Sign In</button>
+        <p class="center hint">No account? <button class="link-btn" onclick="showReg()">Create one →</button></p>
       </div>
 
-      <!-- Register form -->
+      <!-- Register -->
       <div id="form-reg" class="hidden">
         <div class="auth-title">Create your vault</div>
         <div class="field">
@@ -550,50 +737,121 @@ textarea { resize: vertical; min-height: 80px; }
         <p id="rg-err" class="err"></p>
         <p class="hint">Your password encrypts the vault client-side. The server never sees it.</p>
         <button class="btn btn-primary btn-full" onclick="doRegister()">Create Vault</button>
-        <p class="center hint">
-          Have an account? <button class="link-btn" onclick="showLogin()">Sign in →</button>
-        </p>
+        <p class="center hint">Have an account? <button class="link-btn" onclick="showLogin()">Sign in →</button></p>
       </div>
     </div>
   </div>
 
-  <!-- ══ MAIN APP ═════════════════════════════════════════════════════════ -->
-  <div id="screen-main" class="hidden" style="display:flex;flex-direction:column;flex:1">
+  <!-- ══ MAIN APP ════════════════════════════════════════════════════════════ -->
+  <div id="screen-main" class="hidden" style="display:flex;flex-direction:column;flex:1;min-height:0">
 
-    <!-- Topbar -->
-    <div class="topbar">
-      <span class="topbar-logo">🔐 PassVault</span>
+    <!-- ── DESKTOP sidebar ── -->
+    <div class="desktop-sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-text">🔐 PassVault</div>
+        <div class="sidebar-logo-sub">Zero-knowledge vault</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-item active" id="sb-vault" onclick="sidebarNav('vault')">
+          <span class="sidebar-item-icon">🗄️</span> My Vault
+        </button>
+        <button class="sidebar-item" id="sb-add" onclick="openAdd()">
+          <span class="sidebar-item-icon">＋</span> Add Entry
+        </button>
+        <button class="sidebar-item" id="sb-devices" onclick="openDevices()">
+          <span class="sidebar-item-icon">💻</span> Devices
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-chip" style="margin-bottom:0.5rem">
+          <div class="user-chip-av" id="user-av-desk"></div>
+          <div class="user-chip-info">
+            <div class="user-chip-name" id="user-label-desk"></div>
+            <div class="user-chip-role">Vault owner</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" style="width:100%;font-size:0.8rem" onclick="doLogout()">⇥ Sign out</button>
+      </div>
+    </div>
+
+    <!-- ── DESKTOP topbar ── -->
+    <div class="desktop-topbar">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input id="inp-search" type="text" placeholder="Search sites or usernames…" oninput="renderEntries()">
+        <input id="inp-search-desk" type="text" placeholder="Search sites or usernames…" oninput="renderEntries()">
       </div>
       <div class="topbar-right">
-        <div class="user-chip">
-          <div class="user-chip-av" id="user-av"></div>
-          <span id="user-label" style="font-weight:600;font-size:0.82rem"></span>
-        </div>
-        <button class="icon-btn" title="Devices" onclick="openDevices()">💻</button>
         <button class="icon-btn" title="Add entry" onclick="openAdd()">＋</button>
-        <button class="icon-btn" title="Sign out" onclick="doLogout()">⇥</button>
       </div>
     </div>
 
-    <!-- Content -->
-    <div class="main-content">
-      <div class="content-header">
-        <h2>Your Vault</h2>
-        <span id="entry-count" class="count-badge"></span>
-      </div>
-      <div id="entries-grid" class="entries-grid">
-        <div class="empty-state">
-          <div class="empty-icon">🔒</div>
-          <div class="spinner"></div>
+    <!-- ── DESKTOP content ── -->
+    <div class="desktop-main">
+      <div class="content-wrap">
+        <div class="content-header">
+          <h2>My Vault</h2>
+          <span id="entry-count-desk" class="count-badge"></span>
+        </div>
+        <div id="entries-grid" class="entries-grid">
+          <div class="empty-state"><div class="spinner"></div></div>
         </div>
       </div>
     </div>
-  </div>
 
-</div>
+    <!-- ── MOBILE topbar ── -->
+    <div class="mobile-topbar">
+      <span class="mobile-logo">🔐 PassVault</span>
+      <div class="mobile-topbar-right">
+        <div style="display:flex;align-items:center;gap:0.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:0.2rem 0.6rem 0.2rem 0.3rem">
+          <div class="user-chip-av" id="user-av-mob" style="width:22px;height:22px;font-size:0.65rem"></div>
+          <span id="user-label-mob" style="font-size:0.78rem;font-weight:600"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOBILE search ── -->
+    <div class="mobile-search">
+      <div class="search-wrap" style="max-width:100%;width:100%">
+        <span class="search-icon">🔍</span>
+        <input id="inp-search-mob" type="text" placeholder="Search…" oninput="renderEntries()">
+      </div>
+    </div>
+
+    <!-- ── MOBILE content ── -->
+    <div class="mobile-main">
+      <div class="content-wrap" style="padding:1rem">
+        <div class="content-header" style="margin-bottom:0.85rem">
+          <h2>My Vault</h2>
+          <span id="entry-count-mob" class="count-badge"></span>
+        </div>
+        <div id="entries-list" class="entries-list">
+          <div class="empty-state"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOBILE bottom nav ── -->
+    <nav class="bottom-nav">
+      <button class="bottom-nav-item active" id="bn-vault" onclick="bottomNav('vault')">
+        <span class="bottom-nav-icon">🗄️</span>
+        <span class="bottom-nav-label">Vault</span>
+      </button>
+      <button class="bottom-nav-item" id="bn-add" onclick="openAdd()">
+        <span class="bottom-nav-icon">＋</span>
+        <span class="bottom-nav-label">Add</span>
+      </button>
+      <button class="bottom-nav-item" id="bn-devices" onclick="openDevices()">
+        <span class="bottom-nav-icon">💻</span>
+        <span class="bottom-nav-label">Devices</span>
+      </button>
+      <button class="bottom-nav-item" id="bn-logout" onclick="doLogout()">
+        <span class="bottom-nav-icon">⇥</span>
+        <span class="bottom-nav-label">Sign out</span>
+      </button>
+    </nav>
+
+  </div><!-- /screen-main -->
+</div><!-- /app -->
 
 <!-- ══ MODALS ═══════════════════════════════════════════════════════════════ -->
 
@@ -634,9 +892,7 @@ textarea { resize: vertical; min-height: 80px; }
   <input type="hidden" id="ef-id">
   <div class="modal-foot">
     <button class="btn btn-ghost" onclick="closeModal('modal-edit')">Cancel</button>
-    <button class="btn btn-primary" onclick="saveEntry()">
-      <span id="save-label">Save Entry</span>
-    </button>
+    <button class="btn btn-primary" onclick="saveEntry()"><span id="save-label">Save Entry</span></button>
   </div>
 </div>
 </div>
@@ -692,40 +948,31 @@ textarea { resize: vertical; min-height: 80px; }
 
 <div id="toast" class="toast"></div>
 
-<!-- ══ SCRIPT ═══════════════════════════════════════════════════════════════ -->
+<!-- ══ SCRIPT ══════════════════════════════════════════════════════════════ -->
 <script>
 'use strict';
 
-// ─── WebCrypto — client-side AES-256-GCM ─────────────────────────────────────
-// Key is derived from master password + username (server never sees plaintext)
 let vaultKey = null;
 let currentUser = null;
 let allEntries = [];
 let currentViewId = null;
 
+// ─── WebCrypto ────────────────────────────────────────────────────────────────
 async function deriveVaultKey(password, username) {
   const enc = new TextEncoder();
   const salt = enc.encode('passvault:' + username.toLowerCase());
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
-  );
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
   return crypto.subtle.deriveKey(
     { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
-    keyMaterial,
-    { name: 'AES-GCM', length: 256 },
-    false, ['encrypt', 'decrypt']
+    keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']
   );
 }
 
 async function encryptField(text) {
   if (!text) return { enc: null, iv: null };
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const encoded = new TextEncoder().encode(text);
-  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, vaultKey, encoded);
-  return {
-    enc: btoa(String.fromCharCode(...new Uint8Array(ct))),
-    iv:  btoa(String.fromCharCode(...iv)),
-  };
+  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, vaultKey, new TextEncoder().encode(text));
+  return { enc: btoa(String.fromCharCode(...new Uint8Array(ct))), iv: btoa(String.fromCharCode(...iv)) };
 }
 
 async function decryptField(enc, iv) {
@@ -738,25 +985,21 @@ async function decryptField(enc, iv) {
   } catch { return '[decrypt error]'; }
 }
 
-// ─── API helpers ───────────────────────────────────────────────────────────────
+// ─── API ──────────────────────────────────────────────────────────────────────
 async function api(method, url, body) {
   showProgress(true);
   try {
     const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: body ? JSON.stringify(body) : undefined,
-      credentials: 'include',
+      method, headers: { 'Content-Type': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined, credentials: 'include',
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Request failed');
     return data;
-  } finally {
-    showProgress(false);
-  }
+  } finally { showProgress(false); }
 }
 
-// ─── Auth ──────────────────────────────────────────────────────────────────────
+// ─── Auth ─────────────────────────────────────────────────────────────────────
 function showLogin() {
   $('form-login').classList.remove('hidden');
   $('form-reg').classList.add('hidden');
@@ -785,8 +1028,8 @@ async function doLogin() {
 }
 
 async function doRegister() {
-  const username = $('rg-user').value.trim();
-  const password = $('rg-pass').value;
+  const username  = $('rg-user').value.trim();
+  const password  = $('rg-pass').value;
   const password2 = $('rg-pass2').value;
   const deviceName = $('rg-device').value.trim();
   const err = $('rg-err');
@@ -814,16 +1057,38 @@ async function doLogout() {
 function enterApp() {
   $('screen-auth').classList.add('hidden');
   $('screen-main').classList.remove('hidden');
-  $('user-label').textContent = currentUser;
-  $('user-av').textContent = currentUser[0].toUpperCase();
+  // Set username in all chips
+  const initials = currentUser[0].toUpperCase();
+  $('user-av-desk').textContent = initials;
+  $('user-av-mob').textContent  = initials;
+  $('user-label-desk').textContent = currentUser;
+  $('user-label-mob').textContent  = currentUser;
   loadEntries();
 }
 
-// ─── Entries ────────────────────────────────────────────────────────────────────
+// ─── Nav helpers ──────────────────────────────────────────────────────────────
+function sidebarNav(page) {
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  $('sb-' + page)?.classList.add('active');
+}
+
+function bottomNav(page) {
+  document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
+  $('bn-' + page)?.classList.add('active');
+}
+
+// ─── Search (unified) ─────────────────────────────────────────────────────────
+function getSearchQuery() {
+  const deskVal = $('inp-search-desk')?.value || '';
+  const mobVal  = $('inp-search-mob')?.value  || '';
+  // Use whichever is non-empty (or desktop if both somehow have values)
+  return (deskVal || mobVal).toLowerCase();
+}
+
+// ─── Entries ──────────────────────────────────────────────────────────────────
 async function loadEntries() {
   try {
     const data = await api('GET', '/api/entries');
-    // Decrypt all entries
     allEntries = await Promise.all(data.entries.map(async e => ({
       id:        e.id,
       site:      e.site,
@@ -838,33 +1103,56 @@ async function loadEntries() {
 }
 
 function renderEntries() {
-  const q = ($('inp-search').value || '').toLowerCase();
+  const q = getSearchQuery();
   const filtered = allEntries.filter(e =>
-    e.site.toLowerCase().includes(q) ||
-    (e.username||'').toLowerCase().includes(q)
+    e.site.toLowerCase().includes(q) || (e.username||'').toLowerCase().includes(q)
   );
-  const grid = $('entries-grid');
-  $('entry-count').textContent = filtered.length + (filtered.length === allEntries.length ? ' entries' : ` of ${allEntries.length}`);
 
+  const countText = filtered.length + (filtered.length === allEntries.length ? ' entries' : ` of ${allEntries.length}`);
+  $('entry-count-desk').textContent = countText;
+  $('entry-count-mob').textContent  = countText;
+
+  // ── Mobile list ──
+  const list = $('entries-list');
+  if (!list) return;
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-state">
+    const emptyHtml = `<div class="empty-state">
+      <div class="empty-icon">${q?'🔍':'🔒'}</div>
+      <p>${q?'No results for "'+esc(q)+'"':'Your vault is empty — tap ＋ to add your first entry.'}</p>
+    </div>`;
+    list.innerHTML = emptyHtml;
+  } else {
+    list.innerHTML = filtered.map(e => `
+      <div class="entry-row" onclick="openView('${e.id}')">
+        <div class="entry-row-favicon">${e.site.slice(0,2)}</div>
+        <div class="entry-row-body">
+          <div class="entry-row-site">${esc(e.site)}</div>
+          <div class="entry-row-user">${esc(e.username) || '<span style="opacity:0.4">No username</span>'}</div>
+        </div>
+        <div class="entry-row-arrow">›</div>
+      </div>`).join('');
+  }
+
+  // ── Desktop grid ──
+  const grid = $('entries-grid');
+  if (!grid) return;
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
       <div class="empty-icon">${q?'🔍':'🔒'}</div>
       <p>${q?'No results for "'+esc(q)+'"':'Your vault is empty — click ＋ to add your first entry.'}</p>
     </div>`;
-    return;
+  } else {
+    grid.innerHTML = filtered.map(e => `
+      <div class="entry-card" onclick="openView('${e.id}')">
+        <div class="entry-favicon">${e.site.slice(0,2)}</div>
+        <div class="entry-site">${esc(e.site)}</div>
+        <div class="entry-user">${esc(e.username) || '<span style="opacity:0.3">—</span>'}</div>
+        <div class="entry-date">Updated ${fmtDate(e.updatedAt)}</div>
+      </div>`).join('');
   }
-
-  grid.innerHTML = filtered.map(e => `
-    <div class="entry-card" onclick="openView('${e.id}')">
-      <div class="entry-favicon">${e.site.slice(0,2)}</div>
-      <div class="entry-site">${esc(e.site)}</div>
-      <div class="entry-user">${esc(e.username) || '<span style="opacity:0.3">—</span>'}</div>
-      <div class="entry-date">Updated ${fmtDate(e.updatedAt)}</div>
-    </div>`
-  ).join('');
 }
 
-// ─── Add / Edit ──────────────────────────────────────────────────────────────────
+// ─── Add / Edit ───────────────────────────────────────────────────────────────
 function openAdd() {
   $('edit-title').textContent = 'New Entry';
   $('save-label').textContent = 'Save Entry';
@@ -883,7 +1171,7 @@ function openEdit(id) {
   if (!e) return;
   $('edit-title').textContent = 'Edit Entry';
   $('save-label').textContent = 'Update Entry';
-  $('ef-id').value = id;
+  $('ef-id').value  = id;
   $('ef-site').value  = e.site;
   $('ef-user').value  = e.username;
   $('ef-pw').value    = e.password;
@@ -895,7 +1183,7 @@ function openEdit(id) {
 }
 
 async function saveEntry() {
-  const id = $('ef-id').value;
+  const id   = $('ef-id').value;
   const site = $('ef-site').value.trim();
   const pw   = $('ef-pw').value;
   if (!site || !pw) { toast('Site and password are required'); return; }
@@ -908,9 +1196,9 @@ async function saveEntry() {
 
   const payload = {
     site,
-    password_enc: pwEnc.enc, iv: pwEnc.iv,
+    password_enc: pwEnc.enc,   iv: pwEnc.iv,
     username_enc: userEnc.enc, username_iv: userEnc.iv,
-    notes_enc: notesEnc.enc,  notes_iv: notesEnc.iv,
+    notes_enc: notesEnc.enc,   notes_iv: notesEnc.iv,
   };
 
   try {
@@ -928,7 +1216,7 @@ async function saveEntry() {
   } catch(e) { toast('⚠ ' + e.message); }
 }
 
-// ─── View ────────────────────────────────────────────────────────────────────────
+// ─── View ─────────────────────────────────────────────────────────────────────
 function openView(id) {
   const e = allEntries.find(x => x.id === id);
   if (!e) return;
@@ -956,10 +1244,7 @@ async function delEntry() {
   } catch(e) { toast('⚠ ' + e.message); }
 }
 
-function editCurrent() {
-  closeModal('modal-view');
-  openEdit(currentViewId);
-}
+function editCurrent() { closeModal('modal-view'); openEdit(currentViewId); }
 
 function copyVal(elId, label) {
   const txt = $(elId).textContent;
@@ -997,8 +1282,8 @@ async function removeDevice(id) {
   } catch(e) { toast('⚠ ' + e.message); }
 }
 
-// ─── Password generator ────────────────────────────────────────────────────────
-function togglePw() { $('ef-pw').type = $('ef-pw').type === 'password' ? 'text' : 'password'; }
+// ─── Password generator ───────────────────────────────────────────────────────
+function togglePw()  { $('ef-pw').type = $('ef-pw').type === 'password' ? 'text' : 'password'; }
 function toggleGen() { $('gen-panel').classList.toggle('open'); }
 
 function genPw() {
@@ -1008,10 +1293,10 @@ function genPw() {
   if ($('g0').checked) chars += '0123456789';
   if ($('gs').checked) chars += '!@#$%^&*()-_=+[]{}|;:<>?';
   if (!chars) { toast('Select at least one character type'); return; }
-  const len = +$('glen').value;
+  const len  = +$('glen').value;
   const rand = crypto.getRandomValues(new Uint32Array(len));
   $('ef-pw').value = [...rand].map(n => chars[n % chars.length]).join('');
-  $('ef-pw').type = 'text';
+  $('ef-pw').type  = 'text';
   updateStrength();
 }
 
@@ -1029,7 +1314,6 @@ function updateStrength() {
   fill.style.background = s<=2 ? '#ef4565' : s<=4 ? '#ffd166' : '#06d6a0';
 }
 
-// Register form strength
 $('rg-pass').addEventListener('input', () => {
   const pw = $('rg-pass').value;
   let s = 0;
@@ -1041,9 +1325,10 @@ $('rg-pass').addEventListener('input', () => {
   fill.style.background = s<=2 ? '#ef4565' : s<=4 ? '#ffd166' : '#06d6a0';
 });
 
-// ─── Modal helpers ─────────────────────────────────────────────────────────────
-function openModal(id) { $(id).classList.add('open'); }
+// ─── Modal helpers ────────────────────────────────────────────────────────────
+function openModal(id)  { $(id).classList.add('open'); }
 function closeModal(id) { $(id).classList.remove('open'); }
+
 document.querySelectorAll('.overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });
@@ -1051,7 +1336,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach(o => o.classList.remove('open'));
 });
 
-// ─── Utilities ─────────────────────────────────────────────────────────────────
+// ─── Utilities ────────────────────────────────────────────────────────────────
 function $(id) { return document.getElementById(id); }
 function esc(s) { const d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
 function showErr(el, msg) { el.textContent = msg; el.classList.add('show'); }
@@ -1067,21 +1352,16 @@ function toast(msg) {
   clearTimeout(_toastT);
   _toastT = setTimeout(() => t.classList.remove('show'), 2600);
 }
+function showProgress(on) { $('progress-bar').classList.toggle('show', on); }
 
-function showProgress(on) {
-  $('progress-bar').classList.toggle('show', on);
-}
-
-// ─── Init: check existing session ─────────────────────────────────────────────
+// ─── Init ─────────────────────────────────────────────────────────────────────
 (async () => {
   try {
     const data = await fetch('/api/auth/me', { credentials: 'include' }).then(r => r.json());
     if (data.username) {
-      // Session exists — need to re-derive key (ask for password)
       currentUser = data.username;
       $('li-user').value = data.username;
       $('screen-auth').classList.remove('hidden');
-      // Show a session-restore hint
       const hint = document.createElement('p');
       hint.className = 'hint center';
       hint.innerHTML = `Welcome back, <strong>${data.username}</strong>. Enter your master password to unlock.`;
