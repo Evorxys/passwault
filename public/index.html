@@ -778,6 +778,40 @@ async function doRegister() {
   } catch(e){showErr(err,e.message)}
 }
 
+async function doLogin() {
+  const user = $('li-user').value.trim();
+  const pass = $('li-pass').value;
+  const device = $('li-device').value.trim() || 'Web Browser';
+  const err = $('li-err');
+
+  if (!user || !pass) {
+    showErr(err, 'Username and password required');
+    return;
+  }
+
+  showProgress(true);
+  try {
+    // 1. Login to server to get session cookie
+    await api('POST', '/api/auth/login', { username: user, password: pass, deviceName: device });
+    
+    // 2. Derive the vault key locally (Zero-Knowledge)
+    currentUser = user;
+    vaultKey = await deriveVaultKey(pass, user);
+    
+    // 3. Switch screens and load data
+    $('screen-auth').style.display = 'none';
+    $('screen-main').style.display = 'flex';
+    
+    // Initialize the vault data
+    await loadVault(); 
+    toast('Welcome back!');
+  } catch (e) {
+    showErr(err, e.message || 'Login failed');
+  } finally {
+    showProgress(false);
+  }
+}
+
 async function doLogout() {
   await fetch('/api/auth/logout',{method:'POST',credentials:'include'});
   vaultKey=null;currentUser=null;allEntries=[];
@@ -1206,7 +1240,7 @@ async function saveEntry() {
 }
 
 // ── View ───────────────────────────────────────────────────────────────────────
-let currentViewId=null;
+currentViewId=null;
 function openView(id) {
   const e=allEntries.find(x=>x.id===id);if(!e)return;
   currentViewId=id;
