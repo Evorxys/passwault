@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: passvault
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PGHOST
+        value: ep-lively-band-a1nzyfl0-pooler.ap-southeast-1.aws.neon.tech
+      - key: PGDATABASE
+        value: neondb
+      - key: PGUSER
+        value: neondb_owner
+      - key: PGPASSWORD
+        sync: false        # Set this manually in Render dashboard (never commit passwords)
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure value
+      - key: PORT
+        value: 3000
