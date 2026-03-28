@@ -14,527 +14,294 @@
   --sidebar-w: 240px; --topbar-h: 58px; --bottomnav-h: 64px;
   --accent:  #6c63ff; --accent2: #8b85ff; --glow: rgba(108,99,255,0.15);
   --green: #06d6a0; --red: #ef4565; --gold: #ffd166;
-  /* Entry accent colors */
   --col-default: #6c63ff; --col-red: #ef4565; --col-orange: #f97316;
   --col-yellow: #ffd166;  --col-green: #06d6a0; --col-blue: #38bdf8;
   --col-purple: #a855f7;  --col-pink: #ec4899;
 }
-
 [data-theme="dark"] {
-  --bg:     #070810; --bg2: #0d0f1e; --bg3: #131628;
-  --border: #1e2238; --border2: #2a2f52;
-  --text:   #e8eaf6; --muted: #6b7099; --muted2: #4a5080;
-  --overlay-bg: rgba(7,8,16,0.8);
-  --card-bg: #0d0f1e; --card-hover: #131628;
-  --input-bg: #131628;
+  --bg:#070810; --bg2:#0d0f1e; --bg3:#131628;
+  --border:#1e2238; --border2:#2a2f52;
+  --text:#e8eaf6; --muted:#6b7099; --muted2:#4a5080;
+  --overlay-bg:rgba(7,8,16,0.8);
+  --card-bg:#0d0f1e; --card-hover:#131628; --input-bg:#131628;
 }
-
 [data-theme="light"] {
-  --bg:     #f4f5fb; --bg2: #ffffff; --bg3: #eef0f8;
-  --border: #dde0f0; --border2: #c5c9e0;
-  --text:   #1a1c2e; --muted: #6b7099; --muted2: #9699b8;
-  --overlay-bg: rgba(20,22,46,0.6);
-  --card-bg: #ffffff; --card-hover: #f4f5fb;
-  --input-bg: #f4f5fb;
+  --bg:#f4f5fb; --bg2:#ffffff; --bg3:#eef0f8;
+  --border:#dde0f0; --border2:#c5c9e0;
+  --text:#1a1c2e; --muted:#6b7099; --muted2:#9699b8;
+  --overlay-bg:rgba(20,22,46,0.6);
+  --card-bg:#ffffff; --card-hover:#f4f5fb; --input-bg:#f4f5fb;
 }
 
 /* ══ RESET & BASE ═════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-
-body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-  transition: background 0.2s, color 0.2s;
-}
-
-[data-theme="dark"] body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: linear-gradient(rgba(108,99,255,0.025) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(108,99,255,0.025) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none; z-index: 0;
-}
-
-#app { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .2s,color .2s}
+[data-theme="dark"] body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(108,99,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(108,99,255,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+#app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
 
 /* ══ AUTH ═════════════════════════════════════════════════════════════════ */
-.auth-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem 1.5rem; }
-
-.auth-box {
-  width: 100%; max-width: 420px;
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 2.5rem;
-  box-shadow: 0 0 60px rgba(108,99,255,0.07), 0 20px 60px rgba(0,0,0,0.15);
-  display: flex; flex-direction: column; gap: 1.25rem;
-}
-
-.auth-logo { text-align: center; }
-
-.logo-ring {
-  width: 60px; height: 60px; border-radius: 50%;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 20px var(--glow);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin: 0 auto 0.85rem;
-  background: radial-gradient(ellipse, rgba(108,99,255,0.12), transparent);
-}
-
-.auth-logo h1 {
-  font-size: 1.8rem; font-weight: 800; letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--text) 30%, var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.auth-logo p { color: var(--muted); font-size: 0.82rem; margin-top: 0.2rem; }
-
-.auth-title {
-  font-size: 1rem; font-weight: 700; color: var(--text);
-  border-bottom: 1px solid var(--border); padding-bottom: 0.65rem;
-}
+.auth-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem}
+.auth-box{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;box-shadow:0 0 60px rgba(108,99,255,.07),0 20px 60px rgba(0,0,0,.15);display:flex;flex-direction:column;gap:1.25rem}
+.auth-logo{text-align:center}
+.logo-ring{width:60px;height:60px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 20px var(--glow);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto .85rem;background:radial-gradient(ellipse,rgba(108,99,255,.12),transparent)}
+.auth-logo h1{font-size:1.8rem;font-weight:800;letter-spacing:-.04em;background:linear-gradient(135deg,var(--text) 30%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auth-logo p{color:var(--muted);font-size:.82rem;margin-top:.2rem}
+.auth-title{font-size:1rem;font-weight:700;color:var(--text);border-bottom:1px solid var(--border);padding-bottom:.65rem}
 
 /* ══ FORM ELEMENTS ════════════════════════════════════════════════════════ */
-.field { display: flex; flex-direction: column; gap: 0.35rem; }
-
-label {
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
-}
-
-input, textarea, select {
-  width: 100%; background: var(--input-bg);
-  border: 1px solid var(--border); border-radius: var(--r-sm);
-  padding: 0.68rem 0.9rem; color: var(--text);
-  font-family: 'Outfit', sans-serif; font-size: 0.9rem; outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input:focus, textarea:focus, select:focus {
-  border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
-}
-input::placeholder { color: var(--muted2); }
-input[type=password] { font-family: var(--mono); letter-spacing: 0.08em; }
-textarea { resize: vertical; min-height: 76px; }
-.mono-input { font-family: var(--mono) !important; letter-spacing: 0.04em; }
-select { cursor: pointer; }
+.field{display:flex;flex-direction:column;gap:.35rem}
+label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+input,textarea,select{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:.68rem .9rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.12)}
+input::placeholder{color:var(--muted2)}
+input[type=password]{font-family:var(--mono);letter-spacing:.08em}
+textarea{resize:vertical;min-height:76px}
+.mono-input{font-family:var(--mono)!important;letter-spacing:.04em}
+select{cursor:pointer}
 
 /* ══ BUTTONS ══════════════════════════════════════════════════════════════ */
-.btn {
-  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.875rem;
-  padding: 0.68rem 1.25rem; border: none; border-radius: var(--r-sm);
-  cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
-  transition: all 0.15s; white-space: nowrap;
-}
-.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(108,99,255,0.35); }
-.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(108,99,255,0.45); }
-.btn-primary:active { transform: none; }
-.btn-ghost { background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
-.btn-ghost:hover { color: var(--text); border-color: var(--border2); }
-.btn-danger { background: rgba(239,69,101,0.1); color: var(--red); border: 1px solid rgba(239,69,101,0.2); }
-.btn-danger:hover { background: rgba(239,69,101,0.18); }
-.btn-sm { padding: 0.38rem 0.7rem; font-size: 0.76rem; }
-.btn-full { width: 100%; }
-.link-btn {
-  background: none; border: none; color: var(--accent2); font-size: 0.84rem;
-  font-family: 'Outfit', sans-serif; cursor: pointer;
-  text-decoration: underline; text-underline-offset: 3px; padding: 0;
-}
-.link-btn:hover { color: var(--accent); }
-
-.err { font-size: 0.78rem; color: var(--red); display: none; }
-.err.show { display: block; }
-.hint { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
-.center { text-align: center; }
+.btn{font-family:'Outfit',sans-serif;font-weight:600;font-size:.875rem;padding:.68rem 1.25rem;border:none;border-radius:var(--r-sm);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;transition:all .15s;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(108,99,255,.35)}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(108,99,255,.45)}
+.btn-primary:active{transform:none}
+.btn-ghost{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2)}
+.btn-danger{background:rgba(239,69,101,.1);color:var(--red);border:1px solid rgba(239,69,101,.2)}
+.btn-danger:hover{background:rgba(239,69,101,.18)}
+.btn-warn{background:rgba(255,209,102,.1);color:var(--gold);border:1px solid rgba(255,209,102,.25)}
+.btn-warn:hover{background:rgba(255,209,102,.18)}
+.btn-sm{padding:.38rem .7rem;font-size:.76rem}
+.btn-full{width:100%}
+.link-btn{background:none;border:none;color:var(--accent2);font-size:.84rem;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+.link-btn:hover{color:var(--accent)}
+.err{font-size:.78rem;color:var(--red);display:none}
+.err.show{display:block}
+.hint{font-size:.76rem;color:var(--muted);line-height:1.5}
+.center{text-align:center}
 
 /* ══ DESKTOP LAYOUT ═══════════════════════════════════════════════════════ */
-.desktop-sidebar {
-  display: none;
-  width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border);
-  position: fixed; top: 0; left: 0; bottom: 0; z-index: 50;
-  flex-direction: column; padding: 1.25rem 0; overflow-y: auto;
-}
+.desktop-sidebar{display:none;width:var(--sidebar-w);background:var(--bg2);border-right:1px solid var(--border);position:fixed;top:0;left:0;bottom:0;z-index:50;flex-direction:column;padding:1.25rem 0;overflow-y:auto}
+.sidebar-logo{padding:0 1.1rem 1.25rem;border-bottom:1px solid var(--border);margin-bottom:.75rem}
+.sidebar-logo-text{font-weight:800;font-size:1.1rem;letter-spacing:-.03em;background:linear-gradient(135deg,var(--text),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-logo-sub{font-size:.66rem;color:var(--muted);margin-top:.1rem}
+.sidebar-section-label{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);padding:.75rem 1.1rem .3rem}
+.sidebar-nav{flex:1;padding:0 .6rem;display:flex;flex-direction:column;gap:.15rem}
+.sidebar-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .75rem;border-radius:var(--r-sm);color:var(--muted);font-size:.875rem;font-weight:500;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .12s;font-family:'Outfit',sans-serif}
+.sidebar-item:hover{background:var(--bg3);color:var(--text)}
+.sidebar-item.active{background:rgba(108,99,255,.1);color:var(--accent2);font-weight:600}
+.sidebar-item-icon{font-size:.95rem;flex-shrink:0;width:18px;text-align:center}
+.sidebar-item-count{margin-left:auto;background:var(--bg3);border:1px solid var(--border);border-radius:99px;font-size:.65rem;font-weight:700;padding:.1rem .45rem;color:var(--muted)}
 
-.sidebar-logo { padding: 0 1.1rem 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 0.75rem; }
-.sidebar-logo-text {
-  font-weight: 800; font-size: 1.1rem; letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--text), var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.sidebar-logo-sub { font-size: 0.66rem; color: var(--muted); margin-top: 0.1rem; }
+/* Folder tree */
+.folder-tree-item{display:flex;align-items:center;gap:.5rem;padding:.45rem .75rem;border-radius:var(--r-sm);color:var(--muted);font-size:.82rem;font-weight:500;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .12s;font-family:'Outfit',sans-serif}
+.folder-tree-item:hover{background:var(--bg3);color:var(--text)}
+.folder-tree-item.active{background:rgba(108,99,255,.1);color:var(--accent2);font-weight:600}
+.folder-tree-item .fold-icon{font-size:.8rem;flex-shrink:0;width:14px;text-align:center;transition:transform .15s}
+.folder-tree-item.open .fold-icon{transform:rotate(90deg)}
+.folder-tree-children{padding-left:.8rem;display:flex;flex-direction:column;gap:.05rem;overflow:hidden}
+.folder-tree-children.collapsed{display:none}
+.folder-tree-count{margin-left:auto;font-size:.62rem;color:var(--muted2)}
 
-.sidebar-section-label {
-  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted2); padding: 0.75rem 1.1rem 0.3rem;
-}
+.sidebar-footer{padding:.75rem .6rem 0;border-top:1px solid var(--border);margin-top:auto}
+.user-chip{display:flex;align-items:center;gap:.55rem;padding:.5rem .7rem;border-radius:var(--r-sm);background:var(--bg3);border:1px solid var(--border);width:100%}
+.user-chip-av{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0}
+.user-chip-name{font-size:.8rem;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.sidebar-nav { flex: 1; padding: 0 0.6rem; display: flex; flex-direction: column; gap: 0.15rem; }
-
-.sidebar-item {
-  display: flex; align-items: center; gap: 0.65rem;
-  padding: 0.6rem 0.75rem; border-radius: var(--r-sm);
-  color: var(--muted); font-size: 0.875rem; font-weight: 500;
-  cursor: pointer; border: none; background: none; width: 100%; text-align: left;
-  transition: all 0.12s; font-family: 'Outfit', sans-serif;
-}
-.sidebar-item:hover { background: var(--bg3); color: var(--text); }
-.sidebar-item.active { background: rgba(108,99,255,0.1); color: var(--accent2); font-weight: 600; }
-.sidebar-item-icon { font-size: 0.95rem; flex-shrink: 0; width: 18px; text-align: center; }
-.sidebar-item-count {
-  margin-left: auto; background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 99px; font-size: 0.65rem; font-weight: 700; padding: 0.1rem 0.45rem; color: var(--muted);
-}
-
-.sidebar-footer { padding: 0.75rem 0.6rem 0; border-top: 1px solid var(--border); margin-top: auto; }
-
-.user-chip {
-  display: flex; align-items: center; gap: 0.55rem;
-  padding: 0.5rem 0.7rem; border-radius: var(--r-sm);
-  background: var(--bg3); border: 1px solid var(--border); width: 100%;
-}
-.user-chip-av {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--accent); display: flex; align-items: center; justify-content: center;
-  font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;
-}
-.user-chip-name { font-size: 0.8rem; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.desktop-topbar {
-  display: none;
-  background: var(--bg2); border-bottom: 1px solid var(--border);
-  padding: 0 1.5rem; height: var(--topbar-h);
-  align-items: center; gap: 1rem;
-  position: fixed; top: 0; left: var(--sidebar-w); right: 0; z-index: 40;
-  backdrop-filter: blur(12px);
-}
-
-.search-wrap { flex: 1; max-width: 380px; position: relative; }
-.search-wrap .search-icon { position: absolute; left: 0.7rem; top: 50%; transform: translateY(-50%); color: var(--muted2); pointer-events: none; font-size: 0.85rem; }
-.search-wrap input { padding-left: 2.1rem; font-size: 0.875rem; height: 36px; padding-top: 0; padding-bottom: 0; }
-
-.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.4rem; }
-
-.icon-btn {
-  width: 34px; height: 34px; border-radius: var(--r-sm);
-  background: var(--bg3); border: 1px solid var(--border); color: var(--muted);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.12s; font-size: 0.95rem;
-}
-.icon-btn:hover { color: var(--text); border-color: var(--border2); background: var(--border); }
-
-/* Theme toggle */
-.theme-toggle {
-  width: 34px; height: 34px; border-radius: var(--r-sm);
-  background: var(--bg3); border: 1px solid var(--border); color: var(--muted);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.12s; font-size: 0.95rem;
-}
-.theme-toggle:hover { color: var(--gold); border-color: var(--gold); }
-
-.desktop-main { display: none; margin-left: var(--sidebar-w); margin-top: var(--topbar-h); flex: 1; flex-direction: column; }
+.desktop-topbar{display:none;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;height:var(--topbar-h);align-items:center;gap:1rem;position:fixed;top:0;left:var(--sidebar-w);right:0;z-index:40;backdrop-filter:blur(12px)}
+.search-wrap{flex:1;max-width:380px;position:relative}
+.search-wrap .search-icon{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted2);pointer-events:none;font-size:.85rem}
+.search-wrap input{padding-left:2.1rem;font-size:.875rem;height:36px;padding-top:0;padding-bottom:0}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:.4rem}
+.icon-btn{width:34px;height:34px;border-radius:var(--r-sm);background:var(--bg3);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .12s;font-size:.95rem}
+.icon-btn:hover{color:var(--text);border-color:var(--border2);background:var(--border)}
+.theme-toggle{width:34px;height:34px;border-radius:var(--r-sm);background:var(--bg3);border:1px solid var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .12s;font-size:.95rem}
+.theme-toggle:hover{color:var(--gold);border-color:var(--gold)}
+.desktop-main{display:none;margin-left:var(--sidebar-w);margin-top:var(--topbar-h);flex:1;flex-direction:column}
 
 /* ══ MOBILE LAYOUT ════════════════════════════════════════════════════════ */
-.mobile-topbar {
-  display: flex; background: var(--bg2); border-bottom: 1px solid var(--border);
-  padding: 0 1rem; height: var(--topbar-h);
-  align-items: center; gap: 0.75rem;
-  position: sticky; top: 0; z-index: 40; backdrop-filter: blur(12px);
-}
-.mobile-logo {
-  font-weight: 800; font-size: 1.05rem; letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--text), var(--accent2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.mobile-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.35rem; }
-
-.mobile-search {
-  display: flex; padding: 0.65rem 1rem;
-  background: var(--bg2); border-bottom: 1px solid var(--border);
-  position: sticky; top: var(--topbar-h); z-index: 39;
-}
-.mobile-search .search-wrap { max-width: 100%; width: 100%; }
-
-.mobile-main { display: flex; flex: 1; flex-direction: column; padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px)); }
-
-.bottom-nav {
-  display: flex; position: fixed; bottom: 0; left: 0; right: 0;
-  height: var(--bottomnav-h); background: var(--bg2); border-top: 1px solid var(--border);
-  z-index: 50; padding-bottom: env(safe-area-inset-bottom, 0px); backdrop-filter: blur(12px);
-}
-.bottom-nav-item {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 0.2rem;
-  cursor: pointer; border: none; background: none; color: var(--muted);
-  font-family: 'Outfit', sans-serif; transition: color 0.15s; padding: 0.5rem;
-  -webkit-tap-highlight-color: transparent;
-}
-.bottom-nav-item.active { color: var(--accent2); }
-.bottom-nav-icon { font-size: 1.15rem; line-height: 1; }
-.bottom-nav-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.03em; }
-
-.fab {
-  position: fixed; bottom: calc(var(--bottomnav-h) + 0.85rem + env(safe-area-inset-bottom, 0px)); right: 1.1rem;
-  width: 50px; height: 50px; border-radius: 50%;
-  background: var(--accent); color: #fff; font-size: 1.4rem;
-  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 18px rgba(108,99,255,0.5); z-index: 45;
-  transition: transform 0.15s; -webkit-tap-highlight-color: transparent;
-}
-.fab:active { transform: scale(0.93); }
+.mobile-topbar{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1rem;height:var(--topbar-h);align-items:center;gap:.75rem;position:sticky;top:0;z-index:40;backdrop-filter:blur(12px)}
+.mobile-logo{font-weight:800;font-size:1.05rem;letter-spacing:-.03em;background:linear-gradient(135deg,var(--text),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mobile-topbar-right{margin-left:auto;display:flex;align-items:center;gap:.35rem}
+.mobile-search{display:flex;padding:.65rem 1rem;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:var(--topbar-h);z-index:39}
+.mobile-search .search-wrap{max-width:100%;width:100%}
+.mobile-main{display:flex;flex:1;flex-direction:column;padding-bottom:calc(var(--bottomnav-h) + env(safe-area-inset-bottom,0px))}
+.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;height:var(--bottomnav-h);background:var(--bg2);border-top:1px solid var(--border);z-index:50;padding-bottom:env(safe-area-inset-bottom,0px);backdrop-filter:blur(12px)}
+.bottom-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;cursor:pointer;border:none;background:none;color:var(--muted);font-family:'Outfit',sans-serif;transition:color .15s;padding:.5rem;-webkit-tap-highlight-color:transparent}
+.bottom-nav-item.active{color:var(--accent2)}
+.bottom-nav-icon{font-size:1.15rem;line-height:1}
+.bottom-nav-label{font-size:.62rem;font-weight:600;letter-spacing:.03em}
+.fab{position:fixed;bottom:calc(var(--bottomnav-h) + .85rem + env(safe-area-inset-bottom,0px));right:1.1rem;width:50px;height:50px;border-radius:50%;background:var(--accent);color:#fff;font-size:1.4rem;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(108,99,255,.5);z-index:45;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.fab:active{transform:scale(.93)}
 
 /* ══ CONTENT SHARED ═══════════════════════════════════════════════════════ */
-.content-wrap { flex: 1; padding: 1.5rem; max-width: 1100px; width: 100%; margin: 0 auto; }
+.content-wrap{flex:1;padding:1.5rem;max-width:1100px;width:100%;margin:0 auto}
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;gap:.75rem;flex-wrap:wrap}
+.content-header h2{font-size:1.1rem;font-weight:700}
+.count-badge{background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:.18rem .55rem;font-size:.69rem;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
 
-.content-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 1.1rem; gap: 0.75rem; flex-wrap: wrap;
-}
-.content-header h2 { font-size: 1.1rem; font-weight: 700; }
-.count-badge {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 99px; padding: 0.18rem 0.55rem;
-  font-size: 0.69rem; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase;
-}
+/* Breadcrumb */
+.breadcrumb{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-bottom:.65rem}
+.breadcrumb-item{font-size:.76rem;color:var(--muted);cursor:pointer;padding:.15rem .3rem;border-radius:4px;transition:color .12s}
+.breadcrumb-item:hover{color:var(--accent2)}
+.breadcrumb-item.current{color:var(--text);font-weight:600;cursor:default}
+.breadcrumb-sep{color:var(--muted2);font-size:.7rem}
 
-/* ── Category filter tabs ── */
-.cat-tabs {
-  display: flex; gap: 0.4rem; flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-.cat-tab {
-  padding: 0.32rem 0.75rem; border-radius: 99px;
-  font-size: 0.76rem; font-weight: 600;
-  background: var(--bg3); border: 1px solid var(--border); color: var(--muted);
-  cursor: pointer; transition: all 0.12s;
-  font-family: 'Outfit', sans-serif; white-space: nowrap;
-}
-.cat-tab:hover { border-color: var(--accent); color: var(--accent2); }
-.cat-tab.active { background: rgba(108,99,255,0.12); border-color: var(--accent); color: var(--accent2); }
+/* Label filter chips */
+.label-filter-wrap{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem}
+.label-chip-filter{padding:.28rem .65rem;border-radius:99px;font-size:.72rem;font-weight:600;background:var(--bg3);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .12s;font-family:'Outfit',sans-serif;white-space:nowrap}
+.label-chip-filter:hover{border-color:var(--accent);color:var(--accent2)}
+.label-chip-filter.active{background:rgba(108,99,255,.12);border-color:var(--accent);color:var(--accent2)}
 
-/* ── Section headers inside vault ── */
-.vault-section-head {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted2); padding: 0.5rem 0 0.5rem; margin-top: 0.5rem;
-  border-bottom: 1px solid var(--border); margin-bottom: 0.5rem;
-  display: flex; align-items: center; gap: 0.4rem;
-}
+/* Vault section heads */
+.vault-section-head{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);padding:.5rem 0 .5rem;margin-top:.5rem;border-bottom:1px solid var(--border);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
 
 /* ══ ENTRY LIST (MOBILE) ══════════════════════════════════════════════════ */
-.entries-list { display: flex; flex-direction: column; gap: 0.4rem; }
+.entries-list{display:flex;flex-direction:column;gap:.4rem}
+.entry-row{display:flex;align-items:center;gap:.85rem;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r);padding:.8rem .95rem;cursor:pointer;transition:border-color .15s,background .1s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+.entry-row:active{background:var(--card-hover)}
+.entry-row:hover{border-color:var(--border2)}
+.entry-row-color-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:99px 0 0 99px}
+.entry-row-favicon{width:38px;height:38px;flex-shrink:0;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--accent2);font-family:var(--mono);text-transform:uppercase}
+.entry-row-body{flex:1;min-width:0}
+.entry-row-site{font-weight:700;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-row-user{font-family:var(--mono);font-size:.71rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}
+.entry-row-meta{display:flex;align-items:center;gap:.35rem;margin-top:.2rem;flex-wrap:wrap}
+.entry-row-arrow{color:var(--muted2);font-size:.8rem;flex-shrink:0}
+.pin-badge{font-size:.65rem}
 
-.entry-row {
-  display: flex; align-items: center; gap: 0.85rem;
-  background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 0.8rem 0.95rem;
-  cursor: pointer; transition: border-color 0.15s, background 0.1s;
-  -webkit-tap-highlight-color: transparent; position: relative; overflow: hidden;
-}
-.entry-row:active { background: var(--card-hover); }
-.entry-row:hover { border-color: var(--border2); }
-
-.entry-row-color-bar {
-  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  border-radius: 99px 0 0 99px;
-}
-
-.entry-row-favicon {
-  width: 38px; height: 38px; flex-shrink: 0;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; font-weight: 700; color: var(--accent2);
-  font-family: var(--mono); text-transform: uppercase;
-}
-.entry-row-body { flex: 1; min-width: 0; }
-.entry-row-site { font-weight: 700; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.entry-row-user { font-family: var(--mono); font-size: 0.71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 0.1rem; }
-.entry-row-meta { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.2rem; }
-.entry-row-arrow { color: var(--muted2); font-size: 0.8rem; flex-shrink: 0; }
-
-/* pin badge */
-.pin-badge { font-size: 0.65rem; }
-.cat-badge {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 99px; padding: 0.05rem 0.4rem;
-  font-size: 0.62rem; font-weight: 600; color: var(--muted);
-}
+/* Label badges (on cards/rows) */
+.label-badge{background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:.04rem .38rem;font-size:.6rem;font-weight:600;color:var(--muted);white-space:nowrap}
 
 /* ══ ENTRY GRID (DESKTOP) ═════════════════════════════════════════════════ */
-.entries-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.85rem; }
-
-.entry-card {
-  background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 1.1rem 1.15rem;
-  cursor: pointer; transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
-  position: relative; overflow: hidden;
-}
-.entry-card-color-bar {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-}
-.entry-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-
-.entry-favicon {
-  width: 34px; height: 34px; background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center;
-  font-size: 0.78rem; font-weight: 700; color: var(--accent2); font-family: var(--mono);
-  text-transform: uppercase; margin-bottom: 0.65rem;
-}
-.entry-site { font-weight: 700; font-size: 0.96rem; letter-spacing: -0.01em; margin-bottom: 0.18rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.entry-user { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.entry-footer { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; }
-.entry-date { font-size: 0.68rem; color: var(--muted2); }
-
-.empty-state { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--muted); }
-.empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
-.empty-state p { font-size: 0.88rem; }
+.entries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.85rem}
+.entry-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.15rem;cursor:pointer;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.entry-card-color-bar{position:absolute;top:0;left:0;right:0;height:3px}
+.entry-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.entry-favicon{width:34px;height:34px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--accent2);font-family:var(--mono);text-transform:uppercase;margin-bottom:.65rem}
+.entry-site{font-weight:700;font-size:.96rem;letter-spacing:-.01em;margin-bottom:.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-user{font-family:var(--mono);font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-footer{display:flex;align-items:center;gap:.35rem;margin-top:.6rem;flex-wrap:wrap}
+.entry-date{font-size:.68rem;color:var(--muted2);margin-left:auto}
+.empty-state{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--muted)}
+.empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.5}
+.empty-state p{font-size:.88rem}
 
 /* ══ MODALS ═══════════════════════════════════════════════════════════════ */
-.overlay {
-  display: none; position: fixed; inset: 0;
-  background: var(--overlay-bg); backdrop-filter: blur(5px);
-  z-index: 100; align-items: center; justify-content: center; padding: 1.5rem;
-}
-.overlay.open { display: flex; }
+.overlay{display:none;position:fixed;inset:0;background:var(--overlay-bg);backdrop-filter:blur(5px);z-index:100;align-items:center;justify-content:center;padding:1.5rem}
+.overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 25px 70px rgba(0,0,0,.3),0 0 0 1px rgba(108,99,255,.08);width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding:1.75rem;display:flex;flex-direction:column;gap:1.1rem;animation:modal-in .18s ease}
+@keyframes modal-in{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.modal-head h2{font-size:1.05rem;font-weight:700}
+.modal-foot{display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap}
+.divider{border:none;border-top:1px solid var(--border)}
 
-.modal {
-  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r);
-  box-shadow: 0 25px 70px rgba(0,0,0,0.3), 0 0 0 1px rgba(108,99,255,0.08);
-  width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto;
-  padding: 1.75rem; display: flex; flex-direction: column; gap: 1.1rem;
-  animation: modal-in 0.18s ease;
-}
-@keyframes modal-in { from { opacity:0; transform: scale(0.97) translateY(8px); } to { opacity:1; transform: none; } }
+/* Password field */
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:5.6rem;font-family:var(--mono);font-size:.84rem}
+.pw-actions{position:absolute;right:.45rem;top:50%;transform:translateY(-50%);display:flex;gap:.2rem}
+.pw-act-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--muted);border-radius:4px;padding:.18rem .4rem;font-size:.68rem;cursor:pointer;transition:all .1s;font-family:'Outfit',sans-serif}
+.pw-act-btn:hover{color:var(--text);border-color:var(--accent)}
+.strength-bar{height:3px;background:var(--bg3);border-radius:99px;margin-top:.3rem;overflow:hidden}
+.strength-fill{height:100%;width:0;border-radius:99px;transition:width .3s,background .3s}
+.gen-panel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:.8rem;display:none;flex-direction:column;gap:.55rem}
+.gen-panel.open{display:flex}
+.gen-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.gen-row label{font-size:.76rem;text-transform:none;letter-spacing:0;color:var(--text);font-weight:500;display:flex;align-items:center;gap:.3rem;cursor:pointer}
+.gen-row input[type=checkbox]{width:auto;accent-color:var(--accent)}
+.gen-row input[type=range]{flex:1;min-width:80px;width:auto;accent-color:var(--accent)}
 
-.modal-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.65rem; border-bottom: 1px solid var(--border); }
-.modal-head h2 { font-size: 1.05rem; font-weight: 700; }
-.modal-foot { display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap; }
-.divider { border: none; border-top: 1px solid var(--border); }
+/* Color picker */
+.color-picker{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.color-swatch{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .12s,border-color .12s;flex-shrink:0}
+.color-swatch:hover{transform:scale(1.15)}
+.color-swatch.selected{border-color:var(--text);transform:scale(1.15)}
 
-/* ── Password field ── */
-.pw-wrap { position: relative; }
-.pw-wrap input { padding-right: 5.6rem; font-family: var(--mono); font-size: 0.84rem; }
-.pw-actions { position: absolute; right: 0.45rem; top: 50%; transform: translateY(-50%); display: flex; gap: 0.2rem; }
-.pw-act-btn {
-  background: var(--bg3); border: 1px solid var(--border2); color: var(--muted);
-  border-radius: 4px; padding: 0.18rem 0.4rem; font-size: 0.68rem; cursor: pointer;
-  transition: all 0.1s; font-family: 'Outfit', sans-serif;
-}
-.pw-act-btn:hover { color: var(--text); border-color: var(--accent); }
-.strength-bar { height: 3px; background: var(--bg3); border-radius: 99px; margin-top: 0.3rem; overflow: hidden; }
-.strength-fill { height: 100%; width: 0; border-radius: 99px; transition: width 0.3s, background 0.3s; }
+/* Multi-label input */
+.labels-input-wrap{display:flex;flex-direction:column;gap:.5rem}
+.labels-tags{display:flex;flex-wrap:wrap;gap:.35rem;min-height:28px}
+.label-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.3);border-radius:99px;padding:.18rem .55rem;font-size:.72rem;font-weight:600;color:var(--accent2)}
+.label-tag-remove{cursor:pointer;opacity:.7;font-size:.75rem;line-height:1;background:none;border:none;color:inherit;padding:0;display:flex;align-items:center}
+.label-tag-remove:hover{opacity:1}
+.labels-add-row{display:flex;gap:.4rem}
+.labels-add-row input{flex:1}
+.labels-suggestions{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.2rem}
+.label-suggest-btn{background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:.15rem .5rem;font-size:.68rem;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .12s}
+.label-suggest-btn:hover{color:var(--accent2);border-color:var(--accent)}
 
-.gen-panel { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0.8rem; display: none; flex-direction: column; gap: 0.55rem; }
-.gen-panel.open { display: flex; }
-.gen-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
-.gen-row label { font-size: 0.76rem; text-transform: none; letter-spacing: 0; color: var(--text); font-weight: 500; display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
-.gen-row input[type=checkbox] { width: auto; accent-color: var(--accent); }
-.gen-row input[type=range] { flex: 1; min-width: 80px; width: auto; accent-color: var(--accent); }
+/* Folder input */
+.folder-input-wrap{position:relative}
+.folder-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);max-height:160px;overflow-y:auto;z-index:10;display:none;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.folder-dropdown.open{display:block}
+.folder-dropdown-item{padding:.48rem .8rem;font-size:.82rem;cursor:pointer;color:var(--muted);transition:background .1s}
+.folder-dropdown-item:hover{background:var(--bg3);color:var(--text)}
 
-/* ── Color picker ── */
-.color-picker { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
-.color-swatch {
-  width: 24px; height: 24px; border-radius: 50%;
-  cursor: pointer; border: 2px solid transparent;
-  transition: transform 0.12s, border-color 0.12s;
-  flex-shrink: 0;
-}
-.color-swatch:hover { transform: scale(1.15); }
-.color-swatch.selected { border-color: var(--text); transform: scale(1.15); }
-
-/* ── View modal ── */
-.view-row { display: flex; align-items: flex-start; gap: 0.7rem; }
-.view-body { flex: 1; min-width: 0; }
-.view-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.22rem; }
-.view-val { font-family: var(--mono); font-size: 0.86rem; word-break: break-all; line-height: 1.4; }
-.view-val.blur { filter: blur(6px); user-select: none; cursor: pointer; transition: filter 0.2s; }
-
-.copy-btn {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 0.32rem 0.6rem;
-  font-size: 0.69rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
-  cursor: pointer; color: var(--muted); transition: all 0.1s; flex-shrink: 0;
-  font-family: 'Outfit', sans-serif;
-}
-.copy-btn:hover { color: var(--accent2); border-color: var(--accent); }
-
-/* View header with color stripe */
-.view-color-stripe { height: 4px; border-radius: 99px; margin-bottom: 0.1rem; }
-
-/* view action row */
-.view-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-.view-pin-btn {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 0.32rem 0.7rem;
-  font-size: 0.76rem; font-weight: 600; cursor: pointer;
-  transition: all 0.1s; font-family: 'Outfit', sans-serif; color: var(--muted);
-}
-.view-pin-btn:hover { color: var(--gold); border-color: var(--gold); }
-.view-pin-btn.pinned { color: var(--gold); border-color: var(--gold); background: rgba(255,209,102,0.08); }
+/* View modal */
+.view-row{display:flex;align-items:flex-start;gap:.7rem}
+.view-body{flex:1;min-width:0}
+.view-label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.22rem}
+.view-val{font-family:var(--mono);font-size:.86rem;word-break:break-all;line-height:1.4}
+.view-val.blur{filter:blur(6px);user-select:none;cursor:pointer;transition:filter .2s}
+.copy-btn{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:.32rem .6rem;font-size:.69rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;color:var(--muted);transition:all .1s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.copy-btn:hover{color:var(--accent2);border-color:var(--accent)}
+.view-color-stripe{height:4px;border-radius:99px;margin-bottom:.1rem}
+.view-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.view-pin-btn{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:.32rem .7rem;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .1s;font-family:'Outfit',sans-serif;color:var(--muted)}
+.view-pin-btn:hover{color:var(--gold);border-color:var(--gold)}
+.view-pin-btn.pinned{color:var(--gold);border-color:var(--gold);background:rgba(255,209,102,.08)}
 
 /* Devices */
-.devices-list { display: flex; flex-direction: column; gap: 0.45rem; }
-.device-row { display: flex; align-items: center; gap: 0.7rem; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0.65rem 0.85rem; }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted2); flex-shrink: 0; }
-.status-dot.active { background: var(--green); box-shadow: 0 0 5px var(--green); }
-.device-info { flex: 1; }
-.device-name { font-weight: 600; font-size: 0.86rem; }
-.device-meta { font-size: 0.7rem; color: var(--muted); }
+.devices-list{display:flex;flex-direction:column;gap:.45rem}
+.device-row{display:flex;align-items:center;gap:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:.65rem .85rem}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted2);flex-shrink:0}
+.status-dot.active{background:var(--green);box-shadow:0 0 5px var(--green)}
+.device-info{flex:1}
+.device-name{font-weight:600;font-size:.86rem}
+.device-meta{font-size:.7rem;color:var(--muted)}
+
+/* Change password steps */
+.chpw-step{display:flex;flex-direction:column;gap:1rem}
+.chpw-step.hidden{display:none}
+.progress-steps{display:flex;gap:.4rem;margin-bottom:.5rem}
+.progress-step{flex:1;height:3px;border-radius:99px;background:var(--border)}
+.progress-step.done{background:var(--accent)}
+.progress-step.active{background:var(--accent2)}
 
 /* Toast */
-.toast {
-  position: fixed; bottom: calc(var(--bottomnav-h) + 0.85rem); left: 50%;
-  transform: translateX(-50%) translateY(70px);
-  background: var(--bg2); color: var(--text); border: 1px solid var(--border2);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0 0 0 1px rgba(108,99,255,0.15);
-  font-size: 0.8rem; font-weight: 600; padding: 0.55rem 1.1rem; border-radius: 99px;
-  opacity: 0; transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), opacity 0.22s;
-  z-index: 999; pointer-events: none; white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast{position:fixed;bottom:calc(var(--bottomnav-h) + .85rem);left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg2);color:var(--text);border:1px solid var(--border2);box-shadow:0 8px 24px rgba(0,0,0,.2),0 0 0 1px rgba(108,99,255,.15);font-size:.8rem;font-weight:600;padding:.55rem 1.1rem;border-radius:99px;opacity:0;transition:transform .22s cubic-bezier(.34,1.56,.64,1),opacity .22s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-/* Progress */
-.progress-bar {
-  position: fixed; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold));
-  background-size: 200% 100%; animation: shimmer 1.5s linear infinite;
-  opacity: 0; transition: opacity 0.2s; z-index: 9999;
-}
-.progress-bar.show { opacity: 1; }
-@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-.spinner { width: 20px; height: 20px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.hidden { display: none !important; }
+/* Progress bar */
+.progress-bar{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--gold));background-size:200% 100%;animation:shimmer 1.5s linear infinite;opacity:0;transition:opacity .2s;z-index:9999}
+.progress-bar.show{opacity:1}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
 
 /* ══ DESKTOP BREAKPOINT ═══════════════════════════════════════════════════ */
-@media (min-width: 768px) {
-  .desktop-sidebar { display: flex; }
-  .desktop-topbar  { display: flex; }
-  .desktop-main    { display: flex; }
-  .mobile-topbar   { display: none; }
-  .mobile-search   { display: none; }
-  .mobile-main     { display: none; }
-  .bottom-nav      { display: none; }
-  .fab             { display: none; }
-  .toast { bottom: 1.25rem; }
-  .content-wrap { padding: 1.75rem; }
+@media(min-width:768px){
+  .desktop-sidebar{display:flex}
+  .desktop-topbar{display:flex}
+  .desktop-main{display:flex}
+  .mobile-topbar{display:none}
+  .mobile-search{display:none}
+  .mobile-main{display:none}
+  .bottom-nav{display:none}
+  .fab{display:none}
+  .toast{bottom:1.25rem}
+  .content-wrap{padding:1.75rem}
 }
-
-@media (max-width: 767px) {
-  .overlay { align-items: flex-end; padding: 0; }
-  .modal {
-    border-radius: 16px 16px 0 0; max-width: 100%; max-height: 92vh;
-    padding: 1.25rem 1.1rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
-    animation: sheet-up 0.26s cubic-bezier(0.32, 0.72, 0, 1);
-  }
-  @keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  .modal::before { content: ''; display: block; width: 34px; height: 4px; background: var(--border2); border-radius: 99px; margin: -0.25rem auto 0.5rem; }
-  .modal-foot { flex-direction: column-reverse; }
-  .modal-foot .btn { width: 100%; justify-content: center; }
+@media(max-width:767px){
+  .overlay{align-items:flex-end;padding:0}
+  .modal{border-radius:16px 16px 0 0;max-width:100%;max-height:92vh;padding:1.25rem 1.1rem calc(1.25rem + env(safe-area-inset-bottom,0px));animation:sheet-up .26s cubic-bezier(.32,.72,0,1)}
+  @keyframes sheet-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .modal::before{content:'';display:block;width:34px;height:4px;background:var(--border2);border-radius:99px;margin:-.25rem auto .5rem}
+  .modal-foot{flex-direction:column-reverse}
+  .modal-foot .btn{width:100%;justify-content:center}
 }
-@media (max-width: 360px) { .auth-box { padding: 1.5rem 1rem; } }
+@media(max-width:360px){.auth-box{padding:1.5rem 1rem}}
 </style>
 </head>
 <body>
@@ -595,25 +362,28 @@ select { cursor: pointer; }
     </div>
     <nav class="sidebar-nav">
       <div class="sidebar-section-label">Vault</div>
-      <button class="sidebar-item active" id="sb-all" onclick="filterCategory(null);sidebarNav('all')">
+      <button class="sidebar-item active" id="sb-all" onclick="selectFolder(null);sidebarNav('all')">
         <span class="sidebar-item-icon">🗄️</span> All Entries
         <span class="sidebar-item-count" id="sb-count-all">0</span>
       </button>
-      <button class="sidebar-item" id="sb-pinned" onclick="filterCategory('__pinned__');sidebarNav('pinned')">
+      <button class="sidebar-item" id="sb-pinned" onclick="selectFolder('__pinned__');sidebarNav('pinned')">
         <span class="sidebar-item-icon">📌</span> Pinned
         <span class="sidebar-item-count" id="sb-count-pinned">0</span>
       </button>
-      <div class="sidebar-section-label" style="margin-top:0.5rem">Categories</div>
-      <div id="sidebar-cats"></div>
-      <div class="sidebar-section-label" style="margin-top:0.5rem">Account</div>
+
+      <div class="sidebar-section-label" style="margin-top:.5rem">Folders</div>
+      <div id="sidebar-folders"></div>
+
+      <div class="sidebar-section-label" style="margin-top:.5rem">Account</div>
       <button class="sidebar-item" onclick="openDevices()"><span class="sidebar-item-icon">💻</span> Devices</button>
+      <button class="sidebar-item" onclick="openChangePassword()"><span class="sidebar-item-icon">🔑</span> Change Password</button>
     </nav>
     <div class="sidebar-footer">
-      <div class="user-chip" style="margin-bottom:0.4rem">
+      <div class="user-chip" style="margin-bottom:.4rem">
         <div class="user-chip-av" id="user-av-desk"></div>
         <span class="user-chip-name" id="user-label-desk"></span>
       </div>
-      <div style="display:flex;gap:0.4rem">
+      <div style="display:flex;gap:.4rem">
         <button class="btn btn-ghost btn-sm" style="flex:1" onclick="doLogout()">⇥ Sign out</button>
         <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn-desk" title="Toggle theme">🌙</button>
       </div>
@@ -624,7 +394,7 @@ select { cursor: pointer; }
   <div class="desktop-topbar">
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input id="inp-search-desk" type="text" placeholder="Search entries…" oninput="renderEntries()">
+      <input id="inp-search-desk" type="text" placeholder="Search entries, labels, folders…" oninput="onSearch()">
     </div>
     <div class="topbar-right">
       <button class="icon-btn" title="Add entry" onclick="openAdd()">＋</button>
@@ -634,11 +404,12 @@ select { cursor: pointer; }
   <!-- Desktop main -->
   <div class="desktop-main">
     <div class="content-wrap">
+      <div id="breadcrumb-desk" class="breadcrumb"></div>
       <div class="content-header">
         <h2 id="vault-title-desk">My Vault</h2>
         <span id="entry-count-desk" class="count-badge"></span>
       </div>
-      <div id="cat-tabs-desk" class="cat-tabs"></div>
+      <div id="label-filters-desk" class="label-filter-wrap"></div>
       <div id="entries-grid" class="entries-grid">
         <div class="empty-state"><div class="spinner"></div></div>
       </div>
@@ -650,9 +421,9 @@ select { cursor: pointer; }
     <span class="mobile-logo">🔐 PassVault</span>
     <div class="mobile-topbar-right">
       <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn-mob" title="Toggle theme">🌙</button>
-      <div style="display:flex;align-items:center;gap:0.35rem;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:0.18rem 0.55rem 0.18rem 0.25rem">
-        <div class="user-chip-av" id="user-av-mob" style="width:22px;height:22px;font-size:0.65rem"></div>
-        <span id="user-label-mob" style="font-size:0.76rem;font-weight:600"></span>
+      <div style="display:flex;align-items:center;gap:.35rem;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:.18rem .55rem .18rem .25rem">
+        <div class="user-chip-av" id="user-av-mob" style="width:22px;height:22px;font-size:.65rem"></div>
+        <span id="user-label-mob" style="font-size:.76rem;font-weight:600"></span>
       </div>
     </div>
   </div>
@@ -661,15 +432,16 @@ select { cursor: pointer; }
   <div class="mobile-search">
     <div class="search-wrap" style="max-width:100%;width:100%">
       <span class="search-icon">🔍</span>
-      <input id="inp-search-mob" type="text" placeholder="Search…" oninput="renderEntries()">
+      <input id="inp-search-mob" type="text" placeholder="Search…" oninput="onSearch()">
     </div>
   </div>
 
   <!-- Mobile main -->
   <div class="mobile-main">
-    <div class="content-wrap" style="padding:0.9rem 1rem">
-      <div id="cat-tabs-mob" class="cat-tabs"></div>
-      <div class="content-header" style="margin-bottom:0.75rem">
+    <div class="content-wrap" style="padding:.9rem 1rem">
+      <div id="breadcrumb-mob" class="breadcrumb"></div>
+      <div id="label-filters-mob" class="label-filter-wrap"></div>
+      <div class="content-header" style="margin-bottom:.75rem">
         <h2 id="vault-title-mob">My Vault</h2>
         <span id="entry-count-mob" class="count-badge"></span>
       </div>
@@ -681,17 +453,17 @@ select { cursor: pointer; }
 
   <!-- Mobile bottom nav -->
   <nav class="bottom-nav">
-    <button class="bottom-nav-item active" id="bn-vault" onclick="filterCategory(null);bottomNav('vault')">
+    <button class="bottom-nav-item active" id="bn-vault" onclick="selectFolder(null);bottomNav('vault')">
       <span class="bottom-nav-icon">🗄️</span><span class="bottom-nav-label">Vault</span>
     </button>
-    <button class="bottom-nav-item" id="bn-pinned" onclick="filterCategory('__pinned__');bottomNav('pinned')">
+    <button class="bottom-nav-item" id="bn-pinned" onclick="selectFolder('__pinned__');bottomNav('pinned')">
       <span class="bottom-nav-icon">📌</span><span class="bottom-nav-label">Pinned</span>
     </button>
-    <button class="bottom-nav-item" id="bn-devices" onclick="openDevices()">
-      <span class="bottom-nav-icon">💻</span><span class="bottom-nav-label">Devices</span>
+    <button class="bottom-nav-item" id="bn-folders" onclick="openFolderPicker()">
+      <span class="bottom-nav-icon">📁</span><span class="bottom-nav-label">Folders</span>
     </button>
-    <button class="bottom-nav-item" id="bn-logout" onclick="doLogout()">
-      <span class="bottom-nav-icon">⇥</span><span class="bottom-nav-label">Sign out</span>
+    <button class="bottom-nav-item" id="bn-account" onclick="openAccountMenu()">
+      <span class="bottom-nav-icon">⚙️</span><span class="bottom-nav-label">Account</span>
     </button>
   </nav>
 
@@ -736,11 +508,32 @@ select { cursor: pointer; }
       <button class="btn btn-primary btn-sm" onclick="genPw()">Generate</button>
     </div>
   </div>
+
+  <!-- Folder -->
   <div class="field">
-    <label>Category</label>
-    <input id="ef-cat" type="text" placeholder="e.g. Social, Work, Finance" list="cat-datalist">
-    <datalist id="cat-datalist"></datalist>
+    <label>Folder <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted2)">(use / for nesting)</span></label>
+    <div class="folder-input-wrap">
+      <input id="ef-folder" type="text" placeholder="e.g. Work/Dev or Personal/Finance" autocomplete="off"
+        oninput="showFolderDropdown()" onfocus="showFolderDropdown()" onblur="setTimeout(hideFolderDropdown,150)">
+      <div id="folder-dropdown" class="folder-dropdown"></div>
+    </div>
   </div>
+
+  <!-- Labels -->
+  <div class="field">
+    <label>Labels</label>
+    <div class="labels-input-wrap">
+      <div id="ef-labels-tags" class="labels-tags"></div>
+      <div class="labels-add-row">
+        <input id="ef-label-input" type="text" placeholder="Add a label…" autocomplete="off"
+          onkeydown="onLabelKeydown(event)" list="label-datalist">
+        <datalist id="label-datalist"></datalist>
+        <button class="btn btn-ghost btn-sm" onclick="addLabelFromInput()">Add</button>
+      </div>
+      <div id="label-suggestions" class="labels-suggestions"></div>
+    </div>
+  </div>
+
   <div class="field">
     <label>Color label</label>
     <div class="color-picker" id="color-picker"></div>
@@ -760,15 +553,16 @@ select { cursor: pointer; }
   <div id="vw-color-stripe" class="view-color-stripe"></div>
   <div class="modal-head">
     <div style="flex:1;min-width:0">
-      <div style="font-size:0.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.15rem" id="vw-category-label"></div>
+      <div style="font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.15rem" id="vw-folder-label"></div>
       <h2 id="vw-site" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></h2>
     </div>
-    <button class="icon-btn" onclick="closeModal('modal-view')" style="margin-left:0.5rem;flex-shrink:0">✕</button>
+    <button class="icon-btn" onclick="closeModal('modal-view')" style="margin-left:.5rem;flex-shrink:0">✕</button>
   </div>
   <div class="view-actions">
     <button class="view-pin-btn" id="vw-pin-btn" onclick="togglePin()">📌 Pin</button>
     <button class="btn btn-ghost btn-sm" onclick="editCurrent()">✏️ Edit</button>
   </div>
+  <div id="vw-labels-row" style="display:flex;flex-wrap:wrap;gap:.35rem"></div>
   <hr class="divider">
   <div class="field">
     <div class="view-label">Username / Email</div>
@@ -788,9 +582,9 @@ select { cursor: pointer; }
   <hr class="divider" id="vw-notes-hr">
   <div id="vw-notes-wrap" class="field">
     <div class="view-label">Notes</div>
-    <div id="vw-notes" style="font-size:0.85rem;color:var(--muted);white-space:pre-wrap;line-height:1.6"></div>
+    <div id="vw-notes" style="font-size:.85rem;color:var(--muted);white-space:pre-wrap;line-height:1.6"></div>
   </div>
-  <div style="font-size:0.68rem;color:var(--muted2)" id="vw-meta"></div>
+  <div style="font-size:.68rem;color:var(--muted2)" id="vw-meta"></div>
   <div class="modal-foot">
     <button class="btn btn-danger" onclick="delEntry()">Delete</button>
     <button class="btn btn-primary" onclick="closeModal('modal-view')">Done</button>
@@ -808,6 +602,82 @@ select { cursor: pointer; }
 </div>
 </div>
 
+<!-- Change Master Password -->
+<div id="modal-chpw" class="overlay">
+<div class="modal">
+  <div class="modal-head"><h2>🔑 Change Master Password</h2><button class="icon-btn" onclick="closeModal('modal-chpw')">✕</button></div>
+  <p class="hint">All entries will be re-encrypted in your browser with the new password. This may take a moment.</p>
+  <div class="progress-steps">
+    <div class="progress-step active" id="chpw-s1"></div>
+    <div class="progress-step" id="chpw-s2"></div>
+    <div class="progress-step" id="chpw-s3"></div>
+  </div>
+
+  <!-- Step 1: Enter passwords -->
+  <div id="chpw-step1" class="chpw-step">
+    <div class="field">
+      <label>Current master password</label>
+      <input id="chpw-current" type="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="field">
+      <label>New master password</label>
+      <input id="chpw-new" type="password" placeholder="min. 8 characters" autocomplete="new-password">
+      <div class="strength-bar"><div id="chpw-strength" class="strength-fill"></div></div>
+    </div>
+    <div class="field">
+      <label>Confirm new password</label>
+      <input id="chpw-new2" type="password" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <p id="chpw-err" class="err"></p>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-chpw')">Cancel</button>
+      <button class="btn btn-primary" onclick="changePasswordStep2()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Re-encrypting -->
+  <div id="chpw-step2" class="chpw-step hidden">
+    <div style="text-align:center;padding:1.5rem 0;display:flex;flex-direction:column;align-items:center;gap:.85rem">
+      <div class="spinner" style="width:32px;height:32px;border-width:3px"></div>
+      <p id="chpw-progress-text" style="font-size:.875rem;color:var(--muted)">Re-encrypting entries…</p>
+    </div>
+  </div>
+
+  <!-- Step 3: Done -->
+  <div id="chpw-step3" class="chpw-step hidden">
+    <div style="text-align:center;padding:1rem 0">
+      <div style="font-size:2.5rem;margin-bottom:.65rem">✅</div>
+      <p style="font-weight:700;font-size:1rem;margin-bottom:.35rem">Password changed!</p>
+      <p class="hint">Your vault has been re-encrypted with the new master password.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary btn-full" onclick="closeModal('modal-chpw')">Done</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Mobile folder picker -->
+<div id="modal-folders" class="overlay">
+<div class="modal">
+  <div class="modal-head"><h2>📁 Folders</h2><button class="icon-btn" onclick="closeModal('modal-folders')">✕</button></div>
+  <div id="mobile-folder-tree"></div>
+  <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('modal-folders')">Close</button></div>
+</div>
+</div>
+
+<!-- Mobile account menu -->
+<div id="modal-account" class="overlay">
+<div class="modal">
+  <div class="modal-head"><h2>Account</h2><button class="icon-btn" onclick="closeModal('modal-account')">✕</button></div>
+  <div style="display:flex;flex-direction:column;gap:.5rem">
+    <button class="btn btn-ghost" onclick="closeModal('modal-account');openDevices()">💻 Trusted Devices</button>
+    <button class="btn btn-ghost" onclick="closeModal('modal-account');openChangePassword()">🔑 Change Master Password</button>
+    <button class="btn btn-danger" onclick="doLogout()">⇥ Sign out</button>
+  </div>
+</div>
+</div>
+
 <div id="toast" class="toast"></div>
 
 <!-- ══ SCRIPT ════════════════════════════════════════════════════════════════ -->
@@ -817,8 +687,10 @@ select { cursor: pointer; }
 // ── State ──────────────────────────────────────────────────────────────────────
 let vaultKey = null, currentUser = null;
 let allEntries = [], currentViewId = null;
-let activeCategoryFilter = null;
-let selectedColor = 'default';
+let activeFolderFilter = null;   // null=all, '__pinned__', or 'path/string'
+let activeLabelFilter = null;    // null or string
+let openFolders = new Set();     // which folder nodes are expanded in sidebar
+let selectedLabels = [];         // labels being added in edit modal
 
 const COLORS = [
   { key:'default', hex:'#6c63ff' }, { key:'red',    hex:'#ef4565' },
@@ -831,207 +703,406 @@ function colorHex(key) { return COLORS.find(c=>c.key===key)?.hex || '#6c63ff'; }
 
 // ── Theme ──────────────────────────────────────────────────────────────────────
 function applyTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem('pv_theme', t);
-  const icon = t === 'dark' ? '🌙' : '☀️';
-  const d = $('theme-btn-desk'); const m = $('theme-btn-mob');
-  if (d) d.textContent = icon; if (m) m.textContent = icon;
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('pv_theme',t);
+  const icon=t==='dark'?'🌙':'☀️';
+  const d=$('theme-btn-desk'),m=$('theme-btn-mob');
+  if(d)d.textContent=icon; if(m)m.textContent=icon;
 }
-function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-}
-// Apply saved theme immediately
-applyTheme(localStorage.getItem('pv_theme') || 'dark');
+function toggleTheme() { applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'); }
+applyTheme(localStorage.getItem('pv_theme')||'dark');
 
 // ── Crypto ─────────────────────────────────────────────────────────────────────
 async function deriveVaultKey(password, username) {
-  const enc = new TextEncoder();
-  const km = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  const enc=new TextEncoder();
+  const km=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveKey']);
   return crypto.subtle.deriveKey(
-    { name:'PBKDF2', salt: enc.encode('passvault:'+username.toLowerCase()), iterations:310000, hash:'SHA-256' },
-    km, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
+    {name:'PBKDF2',salt:enc.encode('passvault:'+username.toLowerCase()),iterations:310000,hash:'SHA-256'},
+    km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']
   );
 }
-async function encryptField(text) {
-  if (!text) return { enc:null, iv:null };
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, vaultKey, new TextEncoder().encode(text));
-  return { enc: btoa(String.fromCharCode(...new Uint8Array(ct))), iv: btoa(String.fromCharCode(...iv)) };
+async function encryptField(text, key) {
+  const k = key || vaultKey;
+  if (!text) return {enc:null,iv:null};
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(text));
+  return {enc:btoa(String.fromCharCode(...new Uint8Array(ct))),iv:btoa(String.fromCharCode(...iv))};
 }
-async function decryptField(enc, iv) {
-  if (!enc || !iv) return '';
+async function decryptField(enc,iv) {
+  if(!enc||!iv) return '';
   try {
-    const ct  = Uint8Array.from(atob(enc), c=>c.charCodeAt(0));
-    const ivB = Uint8Array.from(atob(iv),  c=>c.charCodeAt(0));
-    return new TextDecoder().decode(await crypto.subtle.decrypt({ name:'AES-GCM', iv:ivB }, vaultKey, ct));
+    const ct=Uint8Array.from(atob(enc),c=>c.charCodeAt(0));
+    const ivB=Uint8Array.from(atob(iv),c=>c.charCodeAt(0));
+    return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ivB},vaultKey,ct));
   } catch { return '[decrypt error]'; }
 }
 
 // ── API ────────────────────────────────────────────────────────────────────────
-async function api(method, url, body) {
+async function api(method,url,body) {
   showProgress(true);
   try {
-    const res = await fetch(url, { method, headers:{'Content-Type':'application/json'}, body: body ? JSON.stringify(body) : undefined, credentials:'include' });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Request failed');
+    const res=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,credentials:'include'});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Request failed');
     return data;
   } finally { showProgress(false); }
 }
 
 // ── Auth ───────────────────────────────────────────────────────────────────────
-function showLogin() { $('form-login').classList.remove('hidden'); $('form-reg').classList.add('hidden'); $('li-err').classList.remove('show'); }
-function showReg()   { $('form-reg').classList.remove('hidden'); $('form-login').classList.add('hidden'); $('rg-err').classList.remove('show'); }
+function showLogin(){$('form-login').classList.remove('hidden');$('form-reg').classList.add('hidden');$('li-err').classList.remove('show')}
+function showReg(){$('form-reg').classList.remove('hidden');$('form-login').classList.add('hidden');$('rg-err').classList.remove('show')}
 
 async function doLogin() {
-  const username = $('li-user').value.trim(), password = $('li-pass').value, deviceName = $('li-device').value.trim();
-  const err = $('li-err'); err.classList.remove('show');
-  if (!username || !password) { showErr(err,'Enter username and password'); return; }
+  const username=$('li-user').value.trim(),password=$('li-pass').value,deviceName=$('li-device').value.trim();
+  const err=$('li-err'); err.classList.remove('show');
+  if(!username||!password){showErr(err,'Enter username and password');return}
   try {
     await api('POST','/api/auth/login',{username,password,deviceName});
-    vaultKey = await deriveVaultKey(password, username);
-    currentUser = username.toLowerCase(); $('li-pass').value = '';
+    vaultKey=await deriveVaultKey(password,username);
+    currentUser=username.toLowerCase(); $('li-pass').value='';
     enterApp();
-  } catch(e) { showErr(err, e.message); }
+  } catch(e){showErr(err,e.message)}
 }
 
 async function doRegister() {
-  const username=$('rg-user').value.trim(), password=$('rg-pass').value, password2=$('rg-pass2').value, deviceName=$('rg-device').value.trim();
+  const username=$('rg-user').value.trim(),password=$('rg-pass').value,password2=$('rg-pass2').value,deviceName=$('rg-device').value.trim();
   const err=$('rg-err'); err.classList.remove('show');
-  if (!username||!password) { showErr(err,'Fill in all fields'); return; }
-  if (password!==password2) { showErr(err,'Passwords do not match'); return; }
-  if (password.length<8)   { showErr(err,'Password must be at least 8 characters'); return; }
+  if(!username||!password){showErr(err,'Fill in all fields');return}
+  if(password!==password2){showErr(err,'Passwords do not match');return}
+  if(password.length<8){showErr(err,'Password must be at least 8 characters');return}
   try {
     await api('POST','/api/auth/register',{username,password,deviceName});
-    vaultKey = await deriveVaultKey(password,username);
-    currentUser = username.toLowerCase(); $('rg-pass').value=''; $('rg-pass2').value='';
+    vaultKey=await deriveVaultKey(password,username);
+    currentUser=username.toLowerCase(); $('rg-pass').value='';$('rg-pass2').value='';
     enterApp();
-  } catch(e) { showErr(err,e.message); }
+  } catch(e){showErr(err,e.message)}
 }
 
 async function doLogout() {
   await fetch('/api/auth/logout',{method:'POST',credentials:'include'});
-  vaultKey=null; currentUser=null; allEntries=[];
-  $('screen-main').classList.add('hidden'); $('screen-auth').classList.remove('hidden'); showLogin();
+  vaultKey=null;currentUser=null;allEntries=[];
+  $('screen-main').classList.add('hidden');$('screen-auth').classList.remove('hidden');showLogin();
 }
 
 function enterApp() {
   $('screen-auth').classList.add('hidden');
   $('screen-main').classList.remove('hidden');
-  const i = currentUser[0].toUpperCase();
-  $('user-av-desk').textContent = i; $('user-av-mob').textContent = i;
-  $('user-label-desk').textContent = currentUser; $('user-label-mob').textContent = currentUser;
+  const i=currentUser[0].toUpperCase();
+  $('user-av-desk').textContent=i;$('user-av-mob').textContent=i;
+  $('user-label-desk').textContent=currentUser;$('user-label-mob').textContent=currentUser;
   buildColorPicker();
   loadEntries();
 }
 
-// ── Nav ────────────────────────────────────────────────────────────────────────
-function sidebarNav(page) {
-  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
-  $('sb-'+page)?.classList.add('active');
+// ── Change Master Password ─────────────────────────────────────────────────────
+function openChangePassword() {
+  $('chpw-current').value='';$('chpw-new').value='';$('chpw-new2').value='';
+  $('chpw-err').classList.remove('show');$('chpw-strength').style.width='0';
+  showChpwStep(1);
+  openModal('modal-chpw');
 }
-function bottomNav(page) {
-  document.querySelectorAll('.bottom-nav-item').forEach(el=>el.classList.remove('active'));
-  $('bn-'+page)?.classList.add('active');
-}
-function getSearchQuery() { return (($('inp-search-desk')?.value||'') || ($('inp-search-mob')?.value||'')).toLowerCase(); }
 
-// ── Category filter ────────────────────────────────────────────────────────────
-function filterCategory(cat) {
-  activeCategoryFilter = cat;
-  renderEntries();
-  // Update sidebar active state
-  document.querySelectorAll('.sidebar-item[data-cat]').forEach(el=>el.classList.remove('active'));
-  if (cat === null) { $('sb-all')?.classList.add('active'); }
-  else if (cat === '__pinned__') { $('sb-pinned')?.classList.add('active'); }
-  else {
-    document.querySelector(`.sidebar-item[data-cat="${CSS.escape(cat)}"]`)?.classList.add('active');
-    $('sb-all')?.classList.remove('active');
-  }
-  // Update category tabs
-  document.querySelectorAll('.cat-tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.cat === (cat===null ? '__all__' : cat));
+function showChpwStep(n) {
+  [1,2,3].forEach(i=>{
+    $('chpw-step'+i).classList.toggle('hidden',i!==n);
+    const s=$('chpw-s'+i);
+    s.classList.remove('done','active');
+    if(i<n) s.classList.add('done');
+    if(i===n) s.classList.add('active');
   });
 }
 
-function buildCategoryUI() {
-  const cats = [...new Set(allEntries.map(e=>e.category||'General'))].sort();
-  const pinnedCount = allEntries.filter(e=>e.pinned).length;
+$('chpw-new').addEventListener('input',()=>{
+  const pw=$('chpw-new').value; let s=0;
+  if(pw.length>=8)s++;if(pw.length>=14)s++;
+  if(/[A-Z]/.test(pw))s++;if(/[a-z]/.test(pw))s++;
+  if(/[0-9]/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;
+  const f=$('chpw-strength');f.style.width=Math.round(s/6*100)+'%';
+  f.style.background=s<=2?'#ef4565':s<=4?'#ffd166':'#06d6a0';
+});
 
-  // Update sidebar counts
-  $('sb-count-all').textContent = allEntries.length;
-  $('sb-count-pinned').textContent = pinnedCount;
+async function changePasswordStep2() {
+  const cur=$('chpw-current').value, nw=$('chpw-new').value, nw2=$('chpw-new2').value;
+  const err=$('chpw-err'); err.classList.remove('show');
+  if(!cur||!nw||!nw2){showErr(err,'Fill in all fields');return}
+  if(nw!==nw2){showErr(err,'New passwords do not match');return}
+  if(nw.length<8){showErr(err,'New password must be at least 8 characters');return}
+  if(nw===cur){showErr(err,'New password must be different');return}
 
-  // Sidebar cat links
-  const sidebarCats = $('sidebar-cats');
-  sidebarCats.innerHTML = cats.map(c=>`
-    <button class="sidebar-item" data-cat="${esc(c)}" onclick="filterCategory('${esc(c)}');sidebarNav('')">
-      <span class="sidebar-item-icon">🏷️</span> ${esc(c)}
-      <span class="sidebar-item-count">${allEntries.filter(e=>(e.category||'General')===c).length}</span>
-    </button>`).join('');
+  showChpwStep(2);
 
-  // Cat tabs (desktop + mobile)
-  const tabHtml = `<button class="cat-tab ${activeCategoryFilter===null?'active':''}" data-cat="__all__" onclick="filterCategory(null)">All</button>`
-    + cats.map(c=>`<button class="cat-tab ${activeCategoryFilter===c?'active':''}" data-cat="${esc(c)}" onclick="filterCategory('${esc(c)}')">${esc(c)}</button>`).join('');
-  $('cat-tabs-desk').innerHTML = tabHtml;
-  $('cat-tabs-mob').innerHTML  = tabHtml;
+  try {
+    // Derive new key client-side
+    const newKey=await deriveVaultKey(nw, currentUser);
+    const total=allEntries.length;
+    const reEncrypted=[];
 
-  // Datalist for input
-  const dl = $('cat-datalist');
-  dl.innerHTML = cats.map(c=>`<option value="${esc(c)}">`).join('');
+    for(let i=0;i<total;i++) {
+      $('chpw-progress-text').textContent=`Re-encrypting ${i+1} of ${total}…`;
+      const e=allEntries[i];
+      const [pwE,userE,notesE]=await Promise.all([
+        encryptField(e.password, newKey),
+        encryptField(e.username, newKey),
+        encryptField(e.notes,    newKey),
+      ]);
+      reEncrypted.push({id:e.id,password_enc:pwE.enc,iv:pwE.iv,username_enc:userE.enc,username_iv:userE.iv,notes_enc:notesE.enc,notes_iv:notesE.iv});
+    }
+
+    $('chpw-progress-text').textContent='Saving to server…';
+    await api('POST','/api/auth/change-password',{currentPassword:cur,newPassword:nw,entries:reEncrypted});
+
+    // Swap vault key and clear sensitive inputs
+    vaultKey=newKey;
+    $('chpw-current').value='';$('chpw-new').value='';$('chpw-new2').value='';
+    showChpwStep(3);
+    toast('🔑 Master password changed!');
+  } catch(e) {
+    showChpwStep(1);
+    showErr($('chpw-err'),e.message);
+  }
 }
 
-// ── Entries ────────────────────────────────────────────────────────────────────
+// ── Folder helpers ─────────────────────────────────────────────────────────────
+// Build a tree from flat folder paths like ["Work","Work/Dev","Personal"]
+function buildFolderTree(entries) {
+  const tree = {};
+  entries.forEach(e => {
+    const folder = (e.folder||'').trim();
+    if (!folder) return;
+    const parts = folder.split('/');
+    let node = tree;
+    parts.forEach(part => { if (part) { node[part] = node[part] || {}; node = node[part]; } });
+  });
+  return tree;
+}
+
+function getAllFolderPaths(entries) {
+  const paths = new Set();
+  entries.forEach(e => {
+    const f = (e.folder||'').trim();
+    if (!f) return;
+    const parts = f.split('/');
+    for (let i=1;i<=parts.length;i++) paths.add(parts.slice(0,i).join('/'));
+  });
+  return [...paths].sort();
+}
+
+function renderFolderTreeNode(tree, prefix, depth) {
+  let html = '';
+  Object.keys(tree).sort().forEach(key => {
+    const path = prefix ? prefix+'/'+key : key;
+    const count = allEntries.filter(e=>(e.folder||'').startsWith(path)).length;
+    const hasChildren = Object.keys(tree[key]).length > 0;
+    const isOpen = openFolders.has(path);
+    const isActive = activeFolderFilter === path;
+    const indent = `padding-left:${0.75 + depth*0.8}rem`;
+
+    html += `<div>
+      <button class="folder-tree-item${isOpen?' open':''}${isActive?' active':''}" style="${indent}"
+        onclick="onFolderClick('${esc(path)}', ${hasChildren})">
+        ${hasChildren ? `<span class="fold-icon">▶</span>` : `<span style="width:14px;display:inline-block"></span>`}
+        📁 ${esc(key)}
+        <span class="folder-tree-count">${count}</span>
+      </button>
+      ${hasChildren ? `<div id="ftc-${esc(path)}" class="folder-tree-children${isOpen?'':' collapsed'}">
+        ${renderFolderTreeNode(tree[key], path, depth+1)}
+      </div>` : ''}
+    </div>`;
+  });
+  return html;
+}
+
+function buildFolderUI() {
+  const tree = buildFolderTree(allEntries);
+  const html = renderFolderTreeNode(tree, '', 0);
+  $('sidebar-folders').innerHTML = html || '<div style="padding:.4rem 1.1rem;font-size:.76rem;color:var(--muted2)">No folders yet</div>';
+  $('mobile-folder-tree').innerHTML = html || '<p class="hint">No folders yet. Add a folder when creating or editing an entry.</p>';
+  $('sb-count-all').textContent = allEntries.length;
+  $('sb-count-pinned').textContent = allEntries.filter(e=>e.pinned).length;
+}
+
+function onFolderClick(path, hasChildren) {
+  if (hasChildren) {
+    if (openFolders.has(path)) openFolders.delete(path);
+    else openFolders.add(path);
+  }
+  selectFolder(path);
+}
+
+function selectFolder(path) {
+  activeFolderFilter = path;
+  activeLabelFilter = null;
+  buildFolderUI();
+  renderEntries();
+  document.querySelectorAll('.sidebar-item[data-action]').forEach(el=>el.classList.remove('active'));
+  if(path===null) $('sb-all')?.classList.add('active');
+  else if(path==='__pinned__') $('sb-pinned')?.classList.add('active');
+}
+
+// ── Label helpers ──────────────────────────────────────────────────────────────
+function getAllLabels() {
+  const set = new Set();
+  allEntries.forEach(e=>(e.labels||[]).forEach(l=>{ if(l) set.add(l); }));
+  return [...set].sort();
+}
+
+function buildLabelFilterUI() {
+  const labels = getAllLabels();
+  if (!labels.length) { $('label-filters-desk').innerHTML=''; $('label-filters-mob').innerHTML=''; return; }
+  const html = labels.map(l=>`<button class="label-chip-filter${activeLabelFilter===l?' active':''}"
+    onclick="toggleLabelFilter('${esc(l)}')">${esc(l)}</button>`).join('');
+  $('label-filters-desk').innerHTML = html;
+  $('label-filters-mob').innerHTML = html;
+}
+
+function toggleLabelFilter(label) {
+  activeLabelFilter = activeLabelFilter===label ? null : label;
+  renderEntries();
+  buildLabelFilterUI();
+}
+
+// ── Label input in edit modal ──────────────────────────────────────────────────
+function renderLabelTags() {
+  const allKnown = getAllLabels();
+  $('ef-labels-tags').innerHTML = selectedLabels.map(l=>`
+    <span class="label-tag">${esc(l)}
+      <button class="label-tag-remove" onclick="removeLabel('${esc(l)}')">✕</button>
+    </span>`).join('');
+  // Suggestions: known labels not yet selected
+  const suggestions = allKnown.filter(l=>!selectedLabels.includes(l));
+  $('label-suggestions').innerHTML = suggestions.map(l=>`
+    <button class="label-suggest-btn" onclick="addLabel('${esc(l)}')">${esc(l)}</button>`).join('');
+  // Datalist
+  $('label-datalist').innerHTML = suggestions.map(l=>`<option value="${esc(l)}">`).join('');
+}
+
+function addLabel(label) {
+  const l = label.trim();
+  if (!l || selectedLabels.includes(l)) return;
+  selectedLabels.push(l);
+  $('ef-label-input').value = '';
+  renderLabelTags();
+}
+
+function addLabelFromInput() { addLabel($('ef-label-input').value); }
+
+function removeLabel(label) {
+  selectedLabels = selectedLabels.filter(l=>l!==label);
+  renderLabelTags();
+}
+
+function onLabelKeydown(e) {
+  if (e.key==='Enter'||e.key===',') { e.preventDefault(); addLabelFromInput(); }
+}
+
+// ── Folder dropdown in edit modal ──────────────────────────────────────────────
+function showFolderDropdown() {
+  const val = $('ef-folder').value.toLowerCase();
+  const allPaths = getAllFolderPaths(allEntries);
+  const matches = val ? allPaths.filter(p=>p.toLowerCase().includes(val)) : allPaths;
+  if (!matches.length) { hideFolderDropdown(); return; }
+  const dd = $('folder-dropdown');
+  dd.innerHTML = matches.map(p=>`<div class="folder-dropdown-item" onclick="$('ef-folder').value='${esc(p)}';hideFolderDropdown()">📁 ${esc(p)}</div>`).join('');
+  dd.classList.add('open');
+}
+function hideFolderDropdown() { $('folder-dropdown').classList.remove('open'); }
+
+// ── Breadcrumb ─────────────────────────────────────────────────────────────────
+function buildBreadcrumb() {
+  let html = `<span class="breadcrumb-item" onclick="selectFolder(null)">🗄️ All</span>`;
+  if (activeFolderFilter === '__pinned__') {
+    html += `<span class="breadcrumb-sep">›</span><span class="breadcrumb-item current">📌 Pinned</span>`;
+  } else if (activeFolderFilter) {
+    const parts = activeFolderFilter.split('/');
+    parts.forEach((part,i) => {
+      const path = parts.slice(0,i+1).join('/');
+      const isCurrent = i===parts.length-1;
+      html += `<span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-item${isCurrent?' current':''}"
+          ${isCurrent?'':'onclick="selectFolder(\''+esc(path)+'\')"'}>📁 ${esc(part)}</span>`;
+    });
+  }
+  $('breadcrumb-desk').innerHTML=html;
+  $('breadcrumb-mob').innerHTML=html;
+}
+
+// ── Entries load & render ──────────────────────────────────────────────────────
+function onSearch() {
+  activeLabelFilter = null;
+  buildLabelFilterUI();
+  renderEntries();
+}
+
 async function loadEntries() {
   try {
     const data = await api('GET','/api/entries');
     allEntries = await Promise.all(data.entries.map(async e=>({
       id:e.id, site:e.site,
-      username: await decryptField(e.username_enc, e.username_iv),
-      password: await decryptField(e.password_enc, e.iv),
-      notes:    await decryptField(e.notes_enc, e.notes_iv),
-      category: e.category || 'General',
-      color:    e.color    || 'default',
-      pinned:   e.pinned   || false,
-      updatedAt: e.updated_at,
+      username: await decryptField(e.username_enc,e.username_iv),
+      password: await decryptField(e.password_enc,e.iv),
+      notes:    await decryptField(e.notes_enc,e.notes_iv),
+      labels:   e.labels||[],
+      color:    e.color||'default',
+      pinned:   e.pinned||false,
+      folder:   e.folder||'',
+      updatedAt:e.updated_at,
     })));
-    buildCategoryUI();
+    buildFolderUI();
+    buildLabelFilterUI();
     renderEntries();
   } catch(e) { toast('⚠ '+e.message); }
 }
 
+function getSearchQuery() { return (($('inp-search-desk')?.value||'')||($('inp-search-mob')?.value||'')).toLowerCase(); }
+
 function renderEntries() {
   const q = getSearchQuery();
-  let filtered = allEntries.filter(e =>
-    e.site.toLowerCase().includes(q) || (e.username||'').toLowerCase().includes(q) ||
-    (e.category||'').toLowerCase().includes(q)
-  );
-  if (activeCategoryFilter === '__pinned__') filtered = filtered.filter(e=>e.pinned);
-  else if (activeCategoryFilter !== null)   filtered = filtered.filter(e=>(e.category||'General')===activeCategoryFilter);
+  const isSearch = !!q;
 
-  const countText = filtered.length + (filtered.length===allEntries.length ? ' entries' : ` of ${allEntries.length}`);
-  $('entry-count-desk').textContent = countText;
-  $('entry-count-mob').textContent  = countText;
+  let filtered = allEntries.filter(e => {
+    if (!q) return true;
+    const lq = q.toLowerCase();
+    return e.site.toLowerCase().includes(lq) ||
+      (e.username||'').toLowerCase().includes(lq) ||
+      (e.folder||'').toLowerCase().includes(lq) ||
+      (e.labels||[]).some(l=>l.toLowerCase().includes(lq)) ||
+      (e.notes||'').toLowerCase().includes(lq);
+  });
 
-  const title = activeCategoryFilter === '__pinned__' ? '📌 Pinned'
-              : activeCategoryFilter ? `🏷️ ${activeCategoryFilter}`
-              : 'My Vault';
-  $('vault-title-desk').textContent = title;
-  $('vault-title-mob').textContent  = title;
+  // Folder filter (skip when searching)
+  if (!isSearch) {
+    if (activeFolderFilter==='__pinned__') filtered=filtered.filter(e=>e.pinned);
+    else if (activeFolderFilter!==null) filtered=filtered.filter(e=>(e.folder||'').startsWith(activeFolderFilter));
+  }
 
-  // Sort: pinned first, then alphabetical
-  const pinned = filtered.filter(e=>e.pinned);
-  const rest   = filtered.filter(e=>!e.pinned);
+  // Label filter
+  if (activeLabelFilter) filtered=filtered.filter(e=>(e.labels||[]).includes(activeLabelFilter));
 
-  // ── Mobile list ──
-  const list = $('entries-list');
-  if (list) {
-    if (!filtered.length) {
-      list.innerHTML = `<div class="empty-state"><div class="empty-icon">${q?'🔍':'🔒'}</div><p>${q?'No results':'Vault is empty — tap ＋ to add.'}</p></div>`;
+  const countText = filtered.length+(filtered.length===allEntries.length?' entries':` of ${allEntries.length}`);
+  $('entry-count-desk').textContent=countText;
+  $('entry-count-mob').textContent=countText;
+
+  const title = activeFolderFilter==='__pinned__'?'📌 Pinned'
+    : activeFolderFilter ? `📁 ${activeFolderFilter.split('/').pop()}`
+    : isSearch ? `🔍 Results`
+    : 'My Vault';
+  $('vault-title-desk').textContent=title;
+  $('vault-title-mob').textContent=title;
+
+  buildBreadcrumb();
+
+  const pinned=filtered.filter(e=>e.pinned), rest=filtered.filter(e=>!e.pinned);
+  const sorted=[...pinned,...rest];
+
+  // Mobile list
+  const list=$('entries-list');
+  if(list){
+    if(!filtered.length){
+      list.innerHTML=`<div class="empty-state"><div class="empty-icon">${q?'🔍':'🔒'}</div><p>${q?'No results':'Vault is empty — tap ＋ to add.'}</p></div>`;
     } else {
-      let html = '';
-      if (pinned.length && !activeCategoryFilter) html += `<div class="vault-section-head">📌 Pinned</div>`;
-      html += [...pinned,...rest].map(e=>`
+      let html='';
+      if(pinned.length&&activeFolderFilter!=='__pinned__') html+=`<div class="vault-section-head">📌 Pinned</div>`;
+      html+=sorted.map(e=>`
         <div class="entry-row" onclick="openView('${e.id}')">
           <div class="entry-row-color-bar" style="background:${colorHex(e.color)}"></div>
           <div class="entry-row-favicon" style="color:${colorHex(e.color)}">${e.site.slice(0,2)}</div>
@@ -1040,31 +1111,33 @@ function renderEntries() {
             <div class="entry-row-user">${esc(e.username)||'<span style="opacity:.35">—</span>'}</div>
             <div class="entry-row-meta">
               ${e.pinned?'<span class="pin-badge">📌</span>':''}
-              <span class="cat-badge">${esc(e.category||'General')}</span>
+              ${(e.labels||[]).slice(0,2).map(l=>`<span class="label-badge">${esc(l)}</span>`).join('')}
+              ${(e.labels||[]).length>2?`<span class="label-badge">+${e.labels.length-2}</span>`:''}
             </div>
           </div>
           <div class="entry-row-arrow">›</div>
         </div>`).join('');
-      list.innerHTML = html;
+      list.innerHTML=html;
     }
   }
 
-  // ── Desktop grid ──
-  const grid = $('entries-grid');
-  if (grid) {
-    if (!filtered.length) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">${q?'🔍':'🔒'}</div><p>${q?'No results':'Vault is empty — click ＋ to add.'}</p></div>`;
+  // Desktop grid
+  const grid=$('entries-grid');
+  if(grid){
+    if(!filtered.length){
+      grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">${q?'🔍':'🔒'}</div><p>${q?'No results':'Vault is empty — click ＋ to add.'}</p></div>`;
     } else {
-      grid.innerHTML = [...pinned,...rest].map(e=>`
+      grid.innerHTML=sorted.map(e=>`
         <div class="entry-card" onclick="openView('${e.id}')">
           <div class="entry-card-color-bar" style="background:${colorHex(e.color)}"></div>
           <div class="entry-favicon" style="color:${colorHex(e.color)}">${e.site.slice(0,2)}</div>
           <div class="entry-site">${esc(e.site)}</div>
           <div class="entry-user">${esc(e.username)||'<span style="opacity:.3">—</span>'}</div>
           <div class="entry-footer">
-            ${e.pinned?'<span style="font-size:0.7rem">📌</span>':''}
-            <span class="cat-badge">${esc(e.category||'General')}</span>
-            <span class="entry-date" style="margin-left:auto">${fmtDate(e.updatedAt)}</span>
+            ${e.pinned?'<span style="font-size:.7rem">📌</span>':''}
+            ${(e.labels||[]).slice(0,2).map(l=>`<span class="label-badge">${esc(l)}</span>`).join('')}
+            ${(e.labels||[]).length>2?`<span class="label-badge">+${e.labels.length-2}</span>`:''}
+            <span class="entry-date">${fmtDate(e.updatedAt)}</span>
           </div>
         </div>`).join('');
     }
@@ -1072,67 +1145,77 @@ function renderEntries() {
 }
 
 // ── Add / Edit ─────────────────────────────────────────────────────────────────
+let selectedColor='default';
+
 function buildColorPicker() {
-  $('color-picker').innerHTML = COLORS.map(c=>`
-    <div class="color-swatch ${selectedColor===c.key?'selected':''}" data-key="${c.key}"
+  $('color-picker').innerHTML=COLORS.map(c=>`
+    <div class="color-swatch${selectedColor===c.key?' selected':''}" data-key="${c.key}"
       style="background:${c.hex}" title="${c.key}"
       onclick="selectColor('${c.key}')"></div>`).join('');
 }
-
 function selectColor(key) {
-  selectedColor = key;
-  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.toggle('selected', s.dataset.key===key));
+  selectedColor=key;
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.toggle('selected',s.dataset.key===key));
 }
 
 function openAdd() {
-  $('edit-title').textContent='New Entry'; $('save-label').textContent='Save Entry';
-  $('ef-id').value=''; $('ef-site').value=''; $('ef-user').value='';
-  $('ef-pw').value=''; $('ef-notes').value=''; $('ef-cat').value='';
-  $('ef-strength').style.width='0'; $('gen-panel').classList.remove('open');
-  $('ef-pw').type='password'; selectedColor='default'; buildColorPicker();
-  openModal('modal-edit'); setTimeout(()=>$('ef-site').focus(),50);
+  $('edit-title').textContent='New Entry';$('save-label').textContent='Save Entry';
+  $('ef-id').value='';$('ef-site').value='';$('ef-user').value='';
+  $('ef-pw').value='';$('ef-notes').value='';$('ef-folder').value=activeFolderFilter&&activeFolderFilter!=='__pinned__'?activeFolderFilter:'';
+  $('ef-strength').style.width='0';$('gen-panel').classList.remove('open');
+  $('ef-pw').type='password';selectedColor='default';buildColorPicker();
+  selectedLabels=[];renderLabelTags();
+  openModal('modal-edit');setTimeout(()=>$('ef-site').focus(),50);
 }
 
 function openEdit(id) {
-  const e = allEntries.find(x=>x.id===id); if (!e) return;
-  $('edit-title').textContent='Edit Entry'; $('save-label').textContent='Update Entry';
-  $('ef-id').value=id; $('ef-site').value=e.site; $('ef-user').value=e.username;
-  $('ef-pw').value=e.password; $('ef-notes').value=e.notes||''; $('ef-cat').value=e.category||'General';
-  $('ef-pw').type='password'; $('gen-panel').classList.remove('open');
-  selectedColor=e.color||'default'; buildColorPicker(); updateStrength();
+  const e=allEntries.find(x=>x.id===id);if(!e)return;
+  $('edit-title').textContent='Edit Entry';$('save-label').textContent='Update Entry';
+  $('ef-id').value=id;$('ef-site').value=e.site;$('ef-user').value=e.username;
+  $('ef-pw').value=e.password;$('ef-notes').value=e.notes||'';$('ef-folder').value=e.folder||'';
+  $('ef-pw').type='password';$('gen-panel').classList.remove('open');
+  selectedColor=e.color||'default';buildColorPicker();updateStrength();
+  selectedLabels=[...(e.labels||[])];renderLabelTags();
   openModal('modal-edit');
 }
 
 async function saveEntry() {
-  const id=$('ef-id').value, site=$('ef-site').value.trim(), pw=$('ef-pw').value;
-  const category=($('ef-cat').value.trim()||'General');
-  if (!site||!pw) { toast('Site and password are required'); return; }
-  const [pwE,userE,notesE] = await Promise.all([encryptField(pw), encryptField($('ef-user').value.trim()), encryptField($('ef-notes').value.trim())]);
-  const payload = { site, password_enc:pwE.enc, iv:pwE.iv, username_enc:userE.enc, username_iv:userE.iv, notes_enc:notesE.enc, notes_iv:notesE.iv, category, color:selectedColor, pinned: id ? (allEntries.find(e=>e.id===id)?.pinned||false) : false };
+  const id=$('ef-id').value,site=$('ef-site').value.trim(),pw=$('ef-pw').value;
+  const folder=($('ef-folder').value.trim()).replace(/\/+$/,'');
+  if(!site||!pw){toast('Site and password are required');return}
+  const [pwE,userE,notesE]=await Promise.all([
+    encryptField(pw),encryptField($('ef-user').value.trim()),encryptField($('ef-notes').value.trim())
+  ]);
+  const payload={site,password_enc:pwE.enc,iv:pwE.iv,username_enc:userE.enc,username_iv:userE.iv,
+    notes_enc:notesE.enc,notes_iv:notesE.iv,labels:selectedLabels,color:selectedColor,folder,
+    pinned:id?(allEntries.find(e=>e.id===id)?.pinned||false):false};
   try {
-    if (id) {
-      payload.pinned = allEntries.find(e=>e.id===id)?.pinned||false;
+    if(id){
       await api('PUT',`/api/entries/${id}`,payload);
       const idx=allEntries.findIndex(e=>e.id===id);
-      if (idx!==-1) allEntries[idx]={...allEntries[idx],site,username:$('ef-user').value.trim(),password:pw,notes:$('ef-notes').value.trim(),category,color:selectedColor,updatedAt:new Date().toISOString()};
+      if(idx!==-1) allEntries[idx]={...allEntries[idx],site,username:$('ef-user').value.trim(),
+        password:pw,notes:$('ef-notes').value.trim(),labels:selectedLabels,color:selectedColor,folder,updatedAt:new Date().toISOString()};
     } else {
       const res=await api('POST','/api/entries',payload);
-      allEntries.unshift({id:res.id,site,username:$('ef-user').value.trim(),password:pw,notes:$('ef-notes').value.trim(),category,color:selectedColor,pinned:false,updatedAt:new Date().toISOString()});
+      allEntries.unshift({id:res.id,site,username:$('ef-user').value.trim(),password:pw,
+        notes:$('ef-notes').value.trim(),labels:selectedLabels,color:selectedColor,folder,pinned:false,updatedAt:new Date().toISOString()});
     }
-    closeModal('modal-edit'); buildCategoryUI(); renderEntries();
+    closeModal('modal-edit');buildFolderUI();buildLabelFilterUI();renderEntries();
     toast(id?'✓ Entry updated':'✓ Entry saved');
-  } catch(e) { toast('⚠ '+e.message); }
+  } catch(e){toast('⚠ '+e.message)}
 }
 
 // ── View ───────────────────────────────────────────────────────────────────────
+let currentViewId=null;
 function openView(id) {
-  const e=allEntries.find(x=>x.id===id); if (!e) return;
+  const e=allEntries.find(x=>x.id===id);if(!e)return;
   currentViewId=id;
   $('vw-site').textContent=e.site;
   $('vw-user').textContent=e.username||'—';
-  $('vw-pw').textContent=e.password; $('vw-pw').classList.add('blur');
-  $('vw-category-label').textContent=e.category||'General';
+  $('vw-pw').textContent=e.password;$('vw-pw').classList.add('blur');
+  $('vw-folder-label').textContent=e.folder?`📁 ${e.folder}`:'';
   $('vw-color-stripe').style.background=colorHex(e.color||'default');
+  $('vw-labels-row').innerHTML=(e.labels||[]).map(l=>`<span class="label-badge" style="font-size:.72rem;padding:.12rem .55rem">${esc(l)}</span>`).join('');
   const hasNotes=!!e.notes;
   $('vw-notes-wrap').style.display=hasNotes?'':'none';
   $('vw-notes-hr').style.display=hasNotes?'':'none';
@@ -1149,33 +1232,33 @@ function updatePinBtn(pinned) {
 }
 
 async function togglePin() {
-  const e=allEntries.find(x=>x.id===currentViewId); if (!e) return;
+  const e=allEntries.find(x=>x.id===currentViewId);if(!e)return;
   const newPinned=!e.pinned;
   try {
     await api('PATCH',`/api/entries/${currentViewId}`,{pinned:newPinned});
-    e.pinned=newPinned; updatePinBtn(newPinned); buildCategoryUI(); renderEntries();
+    e.pinned=newPinned;updatePinBtn(newPinned);buildFolderUI();renderEntries();
     toast(newPinned?'📌 Pinned':'Unpinned');
-  } catch(err) { toast('⚠ '+err.message); }
+  } catch(err){toast('⚠ '+err.message)}
 }
 
 async function delEntry() {
-  if (!confirm('Delete this entry? This cannot be undone.')) return;
+  if(!confirm('Delete this entry? This cannot be undone.'))return;
   try {
     await api('DELETE',`/api/entries/${currentViewId}`);
     allEntries=allEntries.filter(e=>e.id!==currentViewId);
-    closeModal('modal-view'); buildCategoryUI(); renderEntries(); toast('Entry deleted');
-  } catch(e) { toast('⚠ '+e.message); }
+    closeModal('modal-view');buildFolderUI();buildLabelFilterUI();renderEntries();toast('Entry deleted');
+  } catch(e){toast('⚠ '+e.message)}
 }
 
-function editCurrent() { closeModal('modal-view'); openEdit(currentViewId); }
-function copyVal(elId,label) { navigator.clipboard.writeText($(elId).textContent).then(()=>toast(`📋 ${label} copied!`)); }
+function editCurrent(){closeModal('modal-view');openEdit(currentViewId)}
+function copyVal(elId,label){navigator.clipboard.writeText($(elId).textContent).then(()=>toast(`📋 ${label} copied!`))}
 
 // ── Devices ────────────────────────────────────────────────────────────────────
 async function openDevices() {
-  openModal('modal-devices'); $('devices-list').innerHTML='<div class="spinner"></div>';
+  openModal('modal-devices');$('devices-list').innerHTML='<div class="spinner"></div>';
   try {
     const data=await api('GET','/api/devices');
-    if (!data.devices.length) { $('devices-list').innerHTML='<p class="hint">No devices registered.</p>'; return; }
+    if(!data.devices.length){$('devices-list').innerHTML='<p class="hint">No devices registered.</p>';return}
     $('devices-list').innerHTML=data.devices.map(d=>`
       <div class="device-row">
         <div class="status-dot active"></div>
@@ -1185,72 +1268,82 @@ async function openDevices() {
         </div>
         <button class="btn btn-ghost btn-sm" onclick="removeDevice('${d.id}')">Remove</button>
       </div>`).join('');
-  } catch { $('devices-list').innerHTML='<p class="hint">Could not load devices.</p>'; }
+  } catch{$('devices-list').innerHTML='<p class="hint">Could not load devices.</p>'}
 }
 
-async function removeDevice(id) {
-  if (!confirm('Remove this device?')) return;
-  try { await api('DELETE',`/api/devices/${id}`); openDevices(); toast('Device removed'); }
-  catch(e) { toast('⚠ '+e.message); }
+async function removeDevice(id){
+  if(!confirm('Remove this device?'))return;
+  try{await api('DELETE',`/api/devices/${id}`);openDevices();toast('Device removed')}
+  catch(e){toast('⚠ '+e.message)}
 }
+
+// Mobile helpers
+function openFolderPicker(){openModal('modal-folders')}
+function openAccountMenu(){openModal('modal-account')}
 
 // ── Password generator ─────────────────────────────────────────────────────────
-function togglePw()  { $('ef-pw').type=$('ef-pw').type==='password'?'text':'password'; }
-function toggleGen() { $('gen-panel').classList.toggle('open'); }
-function genPw() {
+function togglePw(){$('ef-pw').type=$('ef-pw').type==='password'?'text':'password'}
+function toggleGen(){$('gen-panel').classList.toggle('open')}
+function genPw(){
   let chars='';
-  if ($('gA').checked) chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if ($('ga').checked) chars+='abcdefghijklmnopqrstuvwxyz';
-  if ($('g0').checked) chars+='0123456789';
-  if ($('gs').checked) chars+='!@#$%^&*()-_=+[]{}|;:<>?';
-  if (!chars) { toast('Select at least one type'); return; }
-  const len=+$('glen').value, rand=crypto.getRandomValues(new Uint32Array(len));
+  if($('gA').checked)chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if($('ga').checked)chars+='abcdefghijklmnopqrstuvwxyz';
+  if($('g0').checked)chars+='0123456789';
+  if($('gs').checked)chars+='!@#$%^&*()-_=+[]{}|;:<>?';
+  if(!chars){toast('Select at least one type');return}
+  const len=+$('glen').value,rand=crypto.getRandomValues(new Uint32Array(len));
   $('ef-pw').value=[...rand].map(n=>chars[n%chars.length]).join('');
-  $('ef-pw').type='text'; updateStrength();
+  $('ef-pw').type='text';updateStrength();
 }
-function updateStrength() {
-  const pw=$('ef-pw').value; let s=0;
-  if (pw.length>=8)s++; if (pw.length>=14)s++;
-  if (/[A-Z]/.test(pw))s++; if (/[a-z]/.test(pw))s++;
-  if (/[0-9]/.test(pw))s++; if (/[^A-Za-z0-9]/.test(pw))s++;
-  const f=$('ef-strength'); f.style.width=Math.round(s/6*100)+'%';
+function updateStrength(){
+  const pw=$('ef-pw').value;let s=0;
+  if(pw.length>=8)s++;if(pw.length>=14)s++;
+  if(/[A-Z]/.test(pw))s++;if(/[a-z]/.test(pw))s++;
+  if(/[0-9]/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;
+  const f=$('ef-strength');f.style.width=Math.round(s/6*100)+'%';
   f.style.background=s<=2?'#ef4565':s<=4?'#ffd166':'#06d6a0';
 }
 $('rg-pass').addEventListener('input',()=>{
-  const pw=$('rg-pass').value; let s=0;
-  if (pw.length>=8)s++; if (pw.length>=14)s++;
-  if (/[A-Z]/.test(pw))s++; if (/[a-z]/.test(pw))s++;
-  if (/[0-9]/.test(pw))s++; if (/[^A-Za-z0-9]/.test(pw))s++;
-  const f=$('rg-strength'); f.style.width=Math.round(s/6*100)+'%';
+  const pw=$('rg-pass').value;let s=0;
+  if(pw.length>=8)s++;if(pw.length>=14)s++;
+  if(/[A-Z]/.test(pw))s++;if(/[a-z]/.test(pw))s++;
+  if(/[0-9]/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;
+  const f=$('rg-strength');f.style.width=Math.round(s/6*100)+'%';
   f.style.background=s<=2?'#ef4565':s<=4?'#ffd166':'#06d6a0';
 });
 
+// ── Nav helpers ────────────────────────────────────────────────────────────────
+function sidebarNav(page){
+  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
+  $('sb-'+page)?.classList.add('active');
+}
+function bottomNav(page){
+  document.querySelectorAll('.bottom-nav-item').forEach(el=>el.classList.remove('active'));
+  $('bn-'+page)?.classList.add('active');
+}
+
 // ── Modal helpers ──────────────────────────────────────────────────────────────
-function openModal(id)  { $(id).classList.add('open'); }
-function closeModal(id) { $(id).classList.remove('open'); }
-document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{ if (e.target===o) o.classList.remove('open'); }));
-document.addEventListener('keydown',e=>{ if (e.key==='Escape') document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open')); });
+function openModal(id){$(id).classList.add('open')}
+function closeModal(id){$(id).classList.remove('open')}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'))});
 
 // ── Utilities ──────────────────────────────────────────────────────────────────
-function $(id) { return document.getElementById(id); }
-function esc(s) { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-function showErr(el,msg) { el.textContent=msg; el.classList.add('show'); }
-function fmtDate(iso) { if (!iso) return '—'; return new Date(iso).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
-
+function $(id){return document.getElementById(id)}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+function showErr(el,msg){el.textContent=msg;el.classList.add('show')}
+function fmtDate(iso){if(!iso)return '—';return new Date(iso).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
 let _toastT;
-function toast(msg) {
-  const t=$('toast'); t.textContent=msg; t.classList.add('show');
-  clearTimeout(_toastT); _toastT=setTimeout(()=>t.classList.remove('show'),2500);
-}
-function showProgress(on) { $('progress-bar').classList.toggle('show',on); }
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove('show'),2500)}
+function showProgress(on){$('progress-bar').classList.toggle('show',on)}
 
 // ── Init ───────────────────────────────────────────────────────────────────────
 (async()=>{
   try {
     const data=await fetch('/api/auth/me',{credentials:'include'}).then(r=>r.json());
-    if (data.username) {
-      currentUser=data.username; $('li-user').value=data.username;
-      const hint=document.createElement('p'); hint.className='hint center';
+    if(data.username){
+      currentUser=data.username;$('li-user').value=data.username;
+      const hint=document.createElement('p');hint.className='hint center';
       hint.innerHTML=`Welcome back, <strong>${data.username}</strong>. Enter your master password to unlock.`;
       $('form-login').insertBefore(hint,$('li-err'));
     }
