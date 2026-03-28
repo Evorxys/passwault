@@ -46,9 +46,17 @@ async function initDB() {
       notes_iv    TEXT,
       username_enc TEXT,
       username_iv  TEXT,
+      category    TEXT NOT NULL DEFAULT 'General',
+      color       TEXT NOT NULL DEFAULT 'default',
+      pinned      BOOLEAN NOT NULL DEFAULT FALSE,
       updated_at  TIMESTAMPTZ DEFAULT NOW(),
       created_at  TIMESTAMPTZ DEFAULT NOW()
     );
+
+    -- Add columns to existing tables if upgrading from an older schema
+    ALTER TABLE vault_entries ADD COLUMN IF NOT EXISTS category TEXT NOT NULL DEFAULT 'General';
+    ALTER TABLE vault_entries ADD COLUMN IF NOT EXISTS color    TEXT NOT NULL DEFAULT 'default';
+    ALTER TABLE vault_entries ADD COLUMN IF NOT EXISTS pinned   BOOLEAN NOT NULL DEFAULT FALSE;
 
     CREATE TABLE IF NOT EXISTS devices (
       id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -153,8 +161,8 @@ app.get('/api/auth/me', auth, async (req, res) => {
 app.get('/api/entries', auth, async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT id, site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv, updated_at, created_at
-       FROM vault_entries WHERE user_id=$1 ORDER BY site ASC`,
+      `SELECT id, site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv, category, color, pinned, updated_at, created_at
+       FROM vault_entries WHERE user_id=$1 ORDER BY pinned DESC, site ASC`,
       [req.user.userId]
     );
     res.json({ entries: result.rows });
@@ -165,14 +173,14 @@ app.get('/api/entries', auth, async (req, res) => {
 });
 
 app.post('/api/entries', auth, async (req, res) => {
-  const { site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv } = req.body;
+  const { site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv, category, color, pinned } = req.body;
   if (!site || !password_enc || !iv) return res.status(400).json({ error: 'site, password_enc, iv required' });
 
   try {
     const result = await pool.query(
-      `INSERT INTO vault_entries (user_id, site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id, updated_at`,
-      [req.user.userId, site, username_enc||null, username_iv||null, password_enc, iv, notes_enc||null, notes_iv||null]
+      `INSERT INTO vault_entries (user_id, site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv, category, color, pinned)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id, updated_at`,
+      [req.user.userId, site, username_enc||null, username_iv||null, password_enc, iv, notes_enc||null, notes_iv||null, category||'General', color||'default', pinned||false]
     );
     res.status(201).json({ id: result.rows[0].id, updated_at: result.rows[0].updated_at });
   } catch (e) {
@@ -182,14 +190,42 @@ app.post('/api/entries', auth, async (req, res) => {
 });
 
 app.put('/api/entries/:id', auth, async (req, res) => {
-  const { site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv } = req.body;
+  const { site, username_enc, username_iv, password_enc, iv, notes_enc, notes_iv, category, color, pinned } = req.body;
   try {
     const result = await pool.query(
       `UPDATE vault_entries SET
          site=$1, username_enc=$2, username_iv=$3, password_enc=$4, iv=$5,
-         notes_enc=$6, notes_iv=$7, updated_at=NOW()
-       WHERE id=$8 AND user_id=$9 RETURNING id`,
-      [site, username_enc||null, username_iv||null, password_enc, iv, notes_enc||null, notes_iv||null, req.params.id, req.user.userId]
+         notes_enc=$6, notes_iv=$7, category=$8, color=$9, pinned=$10, updated_at=NOW()
+       WHERE id=$11 AND user_id=$12 RETURNING id`,
+      [site, username_enc||null, username_iv||null, password_enc, iv, notes_enc||null, notes_iv||null, category||'General', color||'default', pinned||false, req.params.id, req.user.userId]
+    );
+    if (!result.rows.length) return res.status(404).json({ error: 'Not found' });
+    res.json({ ok: true });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.patch('/api/entries/:id', auth, async (req, res) => {
+  // Partial update — currently used for toggling pinned
+  const fields = [];
+  const values = [];
+  let idx = 1;
+
+  if (typeof req.body.pinned === 'boolean') { fields.push(`pinned=$${idx++}`);   values.push(req.body.pinned); }
+  if (typeof req.body.color === 'string')   { fields.push(`color=$${idx++}`);    values.push(req.body.color); }
+  if (typeof req.body.category === 'string'){ fields.push(`category=$${idx++}`); values.push(req.body.category); }
+
+  if (!fields.length) return res.status(400).json({ error: 'Nothing to update' });
+
+  fields.push(`updated_at=NOW()`);
+  values.push(req.params.id, req.user.userId);
+
+  try {
+    const result = await pool.query(
+      `UPDATE vault_entries SET ${fields.join(', ')} WHERE id=$${idx} AND user_id=$${idx+1} RETURNING id`,
+      values
     );
     if (!result.rows.length) return res.status(404).json({ error: 'Not found' });
     res.json({ ok: true });
